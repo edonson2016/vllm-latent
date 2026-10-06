@@ -414,6 +414,12 @@ class InputProcessor:
         if isinstance(params, SamplingParams):
             # TODO: can we avoid cloning here in multiproc case?
             sampling_params = params.clone()
+            if (sampling_params.extra_args or {}).get("decode_program") is not None:
+                if resumable:
+                    raise ValueError("Decode programs do not support resumable input")
+                from vllm.v1.latent.validation import validate_request
+
+                validate_request(self.vllm_config, sampling_params, prompt_embeds)
             prompt_len = length_from_prompt_token_ids_or_embeds(
                 prompt_token_ids, prompt_embeds
             )

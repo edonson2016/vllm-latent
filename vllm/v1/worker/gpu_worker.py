@@ -394,6 +394,16 @@ class Worker(WorkerBase):
             torch._C._accelerator_setAllocatorSettings(original_settings)
 
     @instrument(span_name="Init device")
+    def get_latent_decode_counts(self) -> list[int]:
+        """Read per-slot latent counts for offline diagnostics after generation.
+
+        Counts are retained until a slot is reused; this is not a request trace API.
+        """
+        latent = getattr(self.model_runner, "latent_runner", None)
+        if latent is None:
+            return []
+        return latent.masks.sum(dim=1).cpu().tolist()
+
     def init_device(self):
         if self.device_config.device_type == "cuda":
             # This env var set by Ray causes exceptions with graph building.

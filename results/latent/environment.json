@@ -1,0 +1,15 @@
+{
+  "vllm": "0.31.0",
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA RTX A6000",
+  "upstream_commit": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+  "model_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "installed_source_hashes": {
+    "v1/worker/gpu_model_runner.py": "bb903dffcb5a6e5b8a477daf0854b3812e135349d61fc20c6133f91cd3c9752a",
+    "v1/engine/input_processor.py": "d79601e4a053a7bacb0d6a23e273348435e4ab70c6a315dcccb2d428ed57d96b",
+    "v1/core/sched/scheduler.py": "f820bee4f42b878b262a30f3728a97d7413477b2a277748e20f2528ac2ec2f2a",
+    "config/vllm.py": "057b0a7f80db28522ee46b41f9ae5bd7a0c1998a08e111c5a6ddcb8c08f07f8d",
+    "v1/worker/gpu_worker.py": "43bd01925cd84f7d8a1d4a2ec30e289014a485fe4492a5343cbc893e8ed2f518"
+  }
+}

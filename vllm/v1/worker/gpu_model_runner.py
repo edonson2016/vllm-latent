@@ -514,6 +514,7 @@ class GPUModelRunner(
 
         self.is_pooling_model = model_config.runner_type == "pooling"
         self.enable_prompt_embeds = model_config.enable_prompt_embeds
+        self.latent_runner = None
         self.is_multimodal_raw_input_only_model = (
             model_config.is_multimodal_raw_input_only_model
         )
@@ -527,6 +528,15 @@ class GPUModelRunner(
         self.dcp_rank = 0 if self.dcp_world_size <= 1 else get_dcp_group().rank_in_group
         self.max_num_tokens = scheduler_config.max_num_batched_tokens
         self.max_num_reqs = scheduler_config.max_num_seqs
+        latent_config = (
+            vllm_config.additional_config.get("latent_decode")
+            if isinstance(vllm_config.additional_config, dict)
+            else None
+        )
+        if latent_config is not None:
+            from vllm.v1.latent.runner import TransitionRunner
+
+            self.latent_runner = TransitionRunner(self, latent_config)
 
         # Broadcast PP output for external_launcher (torchrun)
         # to make sure we are synced across pp ranks
@@ -1262,6 +1272,9 @@ class GPUModelRunner(
         reqs_to_add: list[CachedRequestState] = []
         deferred_spec_decode_corrections = []
 
+        if self.latent_runner is not None:
+            self.latent_runner.finish(scheduler_output.finished_req_ids)
+
         # Add new requests to the cached states.
         for new_req_data in scheduler_output.scheduled_new_reqs:
             req_id = new_req_data.req_id
@@ -1270,6 +1283,15 @@ class GPUModelRunner(
                 req_state = self._update_streaming_request(req_id, new_req_data)
                 reqs_to_add.append(req_state)
                 continue
+
+            if self.latent_runner is not None:
+                self.latent_runner.admit(new_req_data)
+            elif new_req_data.sampling_params and (
+                new_req_data.sampling_params.extra_args or {}
+            ).get("decode_program"):
+                raise ValueError(
+                    "decode_program requires additional_config.latent_decode"
+                )
 
             sampling_params = new_req_data.sampling_params
             pooling_params = new_req_data.pooling_params
@@ -3600,6 +3622,10 @@ class GPUModelRunner(
             inputs_embeds = None
             model_kwargs = self._init_model_kwargs()
 
+        if self.latent_runner is not None:
+            assert inputs_embeds is not None
+            self.latent_runner.inject(scheduler_output, inputs_embeds)
+
         if self.uses_mrope:
             positions = self.mrope_positions.gpu[:, :num_input_tokens]
         else:
@@ -4562,8 +4588,17 @@ class GPUModelRunner(
                 scheduler_output, grammar_output, self.input_batch, logits
             )
 
+        transition_logits = logits.clone() if self.latent_runner is not None else None
         with record_function_or_nullcontext("gpu_model_runner: sample"):
             sampler_output = self._sample(logits, spec_decode_metadata)
+
+        if self.latent_runner is not None:
+            self.latent_runner.transition(
+                scheduler_output,
+                transition_logits,
+                sample_hidden_states,
+                sampler_output.sampled_token_ids,
+            )
 
         self._update_states_after_model_execute(
             sampler_output.sampled_token_ids, scheduler_output

@@ -1,0 +1,77 @@
+[
+  {
+    "kind": "token",
+    "batch": 1,
+    "graph_device_ms": 0.019341440200805665
+  },
+  {
+    "kind": "token",
+    "batch": 8,
+    "graph_device_ms": 0.02236704111099243
+  },
+  {
+    "kind": "token",
+    "batch": 32,
+    "graph_device_ms": 0.026408638954162598
+  },
+  {
+    "kind": "soft",
+    "batch": 1,
+    "graph_device_ms": 1.838023681640625
+  },
+  {
+    "kind": "soft",
+    "batch": 8,
+    "graph_device_ms": 1.858137969970703
+  },
+  {
+    "kind": "soft",
+    "batch": 32,
+    "graph_device_ms": 2.0272557067871095
+  },
+  {
+    "kind": "hidden",
+    "batch": 1,
+    "graph_device_ms": 0.021608641147613527
+  },
+  {
+    "kind": "hidden",
+    "batch": 8,
+    "graph_device_ms": 0.02445120096206665
+  },
+  {
+    "kind": "hidden",
+    "batch": 32,
+    "graph_device_ms": 0.027626559734344483
+  },
+  {
+    "kind": "norm_hidden",
+    "batch": 1,
+    "graph_device_ms": 0.033423678874969484
+  },
+  {
+    "kind": "norm_hidden",
+    "batch": 8,
+    "graph_device_ms": 0.03899359941482544
+  },
+  {
+    "kind": "norm_hidden",
+    "batch": 32,
+    "graph_device_ms": 0.04614399909973144
+  },
+  {
+    "kind": "entropy",
+    "batch": 1,
+    "graph_device_ms": 1.8994050598144532
+  },
+  {
+    "kind": "entropy",
+    "batch": 8,
+    "graph_device_ms": 1.9659805297851562
+  },
+  {
+    "kind": "entropy",
+    "batch": 32,
+    "graph_device_ms": 2.3848194885253906
+  }
+]

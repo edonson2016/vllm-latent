@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 import itertools
+import json
 import time
 from collections import defaultdict, deque
 from collections.abc import Iterable
@@ -90,6 +91,23 @@ class Scheduler(SchedulerInterface):
     ) -> None:
         self.vllm_config = vllm_config
         self.scheduler_config = vllm_config.scheduler_config
+        latent_config = (
+            vllm_config.additional_config.get("latent_decode")
+            if isinstance(vllm_config.additional_config, dict)
+            else None
+        )
+        self._latent_capacity = (
+            int(latent_config.get("capacity", self.scheduler_config.max_num_seqs * 2))
+            if latent_config is not None
+            else 0
+        )
+        self._latent_live: set[str] = set()
+        self._latent_program_limit = (
+            int(latent_config.get("max_programs", 16))
+            if latent_config is not None
+            else 0
+        )
+        self._latent_programs: dict[str, str] = {}
         self.cache_config = vllm_config.cache_config
         self.lora_config = vllm_config.lora_config
         self.model_uses_mrope = vllm_config.model_config.uses_mrope
@@ -895,6 +913,34 @@ class Scheduler(SchedulerInterface):
 
                 request = request_queue.peek_request()
                 request_id = request.request_id
+                is_latent = bool(
+                    self._latent_capacity
+                    and request.sampling_params
+                    and (request.sampling_params.extra_args or {}).get("decode_program")
+                )
+                if (
+                    is_latent
+                    and request_id not in self._latent_live
+                    and len(self._latent_live) >= self._latent_capacity
+                ):
+                    skip_request(request_queue)
+                    continue
+
+                program_key = ""
+                if is_latent:
+                    params = request.sampling_params
+                    assert params is not None and params.extra_args is not None
+                    program_key = json.dumps(
+                        params.extra_args["decode_program"],
+                        sort_keys=True,
+                    )
+                    active_programs = set(self._latent_programs.values())
+                    if (
+                        program_key not in active_programs
+                        and len(active_programs) >= self._latent_program_limit
+                    ):
+                        skip_request(request_queue)
+                        continue
 
                 ready_to_schedule = self._handle_blocked_waiting_request(request)
                 if not ready_to_schedule:
@@ -1290,6 +1336,9 @@ class Scheduler(SchedulerInterface):
                 request = request_queue.pop_request()
                 self.deferred_waiting.discard(request)
                 self.running.append(request)
+                if is_latent:
+                    self._latent_live.add(request_id)
+                    self._latent_programs[request_id] = program_key
                 if num_external_computed_tokens > 0:
                     # load_kv_async is False here
                     has_sync_kv_loads = True
@@ -2669,6 +2718,8 @@ class Scheduler(SchedulerInterface):
         self.encoder_cache_manager.free(request)
         request_id = request.request_id
         self.finished_req_ids.add(request_id)
+        self._latent_live.discard(request_id)
+        self._latent_programs.pop(request_id, None)
         if self.finished_req_ids_dict is not None:
             self.finished_req_ids_dict[request.client_index].add(request_id)
 

@@ -699,6 +699,18 @@ class VllmConfig:
 
     @property
     def use_v2_model_runner(self) -> bool:
+        if (
+            isinstance(self.additional_config, dict)
+            and "latent_decode" in self.additional_config
+        ):
+            if (
+                envs.VLLM_USE_V2_MODEL_RUNNER is True
+                or self.attention_config.hisparse_config is not None
+                or getattr(self, "watermark_config", None) is not None
+            ):
+                raise ValueError("Latent decode requires Model Runner V1")
+            return False
+
         if self.attention_config.hisparse_config is not None:
             if envs.VLLM_USE_V2_MODEL_RUNNER is False:
                 raise ValueError(

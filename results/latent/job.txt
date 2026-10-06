@@ -1,0 +1,59 @@
+Name:             latent-dev-031
+Namespace:        jacobrg
+Selector:         batch.kubernetes.io/controller-uid=7fe3d731-392f-4c8d-a2a9-5254a34f5ab5
+Labels:           batch.kubernetes.io/controller-uid=7fe3d731-392f-4c8d-a2a9-5254a34f5ab5
+                  batch.kubernetes.io/job-name=latent-dev-031
+                  controller-uid=7fe3d731-392f-4c8d-a2a9-5254a34f5ab5
+                  job-name=latent-dev-031
+                  kai.scheduler/queue=jacobrg-preemptible
+                  kai.scheduler/user=edonson
+                  priorityClassName=train
+Annotations:      <none>
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Start Time:       Tue, 06 Oct 2026 12:11:21 -0400
+Pods Statuses:    1 Active (1 Ready) / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  batch.kubernetes.io/controller-uid=7fe3d731-392f-4c8d-a2a9-5254a34f5ab5
+           batch.kubernetes.io/job-name=latent-dev-031
+           controller-uid=7fe3d731-392f-4c8d-a2a9-5254a34f5ab5
+           job-name=latent-dev-031
+           kai.scheduler/queue=jacobrg-preemptible
+           kai.scheduler/user=edonson
+           priorityClassName=train
+  Containers:
+   work:
+    Image:      vllm/vllm-openai:v0.31.0
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      /bin/bash
+    Args:
+      -lc
+      sleep 14400
+    Limits:
+      nvidia.com/gpu:  1
+    Requests:
+      cpu:     8
+      memory:  64Gi
+    Environment:
+      HOME:     /home/edonson
+      USER:     edonson
+      LOGNAME:  edonson
+    Mounts:
+      /dev/shm from dshm (rw)
+      /home/edonson from vol0 (rw)
+  Volumes:
+   vol0:
+    Type:          HostPath (bare host directory volume)
+    Path:          /home/edonson
+    HostPathType:
+   dshm:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+Events:
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  33m   job-controller  Created pod: latent-dev-031-7sl6l
