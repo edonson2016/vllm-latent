@@ -205,3 +205,20 @@ for rows that ultimately select text. The present SELECT evaluates both branches
 These limits mean the current restricted language does not support literally
 every synchronous framework. It establishes a common transition interface and
 a working batching/cache integration for a useful bounded subset.
+
+## Existing implementations and model-size scaling
+
+Embedding feedback within a batched vLLM engine is not itself new. The
+[QwenReasoning fork](https://github.com/zhaoc5/vllm/tree/31418258c7d8896c2f9259931cccff938d69cb0c)
+implements Soft Thinking, SwiReasoning, and SeLaR, while the
+[SwiReasoning/1Cat fork](https://github.com/dg1kjd/vllm-v100-sxm2-qwen3.5-397b/tree/3c21680950c8842b30d48f0a5757d3130101095f)
+provides another request-specific feedback controller. The contribution explored
+here is a shared, validated transition language with device-resident predicates
+and state, together with embedding-history replay, instead of a separate engine
+integration for each policy. This is a design distinction, not a claim of
+universal expressiveness or better reasoning quality.
+
+The [scaling report](results/scaling/REPORT.md) extends calibration to Qwen3
+0.6B, 1.7B, 4B, and 8B, and compares existing implementations with their own
+non-latent controls. Its [comparison protocol](results/scaling/COMPARATORS.md)
+documents arithmetic, switching-policy, and software-version differences.

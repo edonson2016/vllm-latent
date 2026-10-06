@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
-"""CUDA-event calibration of transition-only execution at Qwen3-8B dimensions."""
+"""CUDA-event calibration of transition-only execution at supplied dimensions."""
 
 import argparse
 import json
@@ -13,16 +13,21 @@ from vllm.v1.latent.program import Program, preset
 
 p = argparse.ArgumentParser()
 p.add_argument("--output", type=Path, required=True)
+p.add_argument("--width", type=int, default=4096)
+p.add_argument("--vocab", type=int, default=151936)
 a = p.parse_args()
-e = torch.randn(151936, 4096, device="cuda", dtype=torch.bfloat16)
+e = torch.randn(a.vocab, a.width, device="cuda", dtype=torch.bfloat16)
 results = []
 for kind in ["token", "soft", "hidden", "norm_hidden", "entropy"]:
-    graph = GraphProgram(Program(preset(kind, 128), 4096, 151936), e, 32)
+    torch.accelerator.synchronize()
+    before = torch.accelerator.memory_allocated()
+    graph = GraphProgram(Program(preset(kind, 128), a.width, a.vocab), e, 32)
+    graph_bytes = torch.accelerator.memory_allocated() - before
     for batch in [1, 8, 32]:
         args = (
-            torch.randn(batch, 151936, device="cuda"),
-            torch.randn(batch, 4096, device="cuda", dtype=torch.bfloat16),
-            torch.randn(batch, 4096, device="cuda", dtype=torch.bfloat16),
+            torch.randn(batch, a.vocab, device="cuda"),
+            torch.randn(batch, a.width, device="cuda", dtype=torch.bfloat16),
+            torch.randn(batch, a.width, device="cuda", dtype=torch.bfloat16),
             torch.zeros(batch, 1, device="cuda", dtype=torch.long),
             torch.zeros(batch, 8, device="cuda"),
             e,
@@ -43,6 +48,9 @@ for kind in ["token", "soft", "hidden", "norm_hidden", "entropy"]:
                 "kind": kind,
                 "batch": batch,
                 "graph_device_ms": start.elapsed_time(end) / 100,
+                "all_capture_sizes_allocated_bytes": graph_bytes,
+                "width": a.width,
+                "vocab": a.vocab,
             }
         )
     del graph

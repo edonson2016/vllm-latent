@@ -1,4 +1,12 @@
 <!-- markdownlint-disable MD001 MD041 -->
+
+> **Research fork: programmable latent decoding.** This branch adds bounded,
+> GPU-resident decode-transition programs to vLLM 0.31.0. Start with the
+> [implementation guide](LATENT_DECODE.md), the [8B benchmark report](results/latent/REPORT.md),
+> and the [model-size and existing-fork comparison](results/scaling/REPORT.md).
+> This is an experimental single-GPU implementation; supported features and
+> limitations are documented in the guide.
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vllm-project/vllm/main/docs/assets/logos/vllm-logo-text-dark.png">

@@ -11,9 +11,11 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 p = argparse.ArgumentParser()
 p.add_argument("--output", type=Path, required=True)
+p.add_argument("--model", default="Qwen/Qwen3-8B")
+p.add_argument("--revision", default="b968826d9c46dd6066d109eabc6255188de91218")
 a = p.parse_args()
-name = "Qwen/Qwen3-8B"
-revision = "b968826d9c46dd6066d109eabc6255188de91218"
+name = a.model
+revision = a.revision
 tokenizer = AutoTokenizer.from_pretrained(name, revision=revision)
 model = AutoModelForCausalLM.from_pretrained(
     name,

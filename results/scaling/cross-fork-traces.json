@@ -1,0 +1,50 @@
+{
+  "Qwen/Qwen3-0.6B/batch1": {
+    "matching_traces": 1,
+    "total_traces": 1
+  },
+  "Qwen/Qwen3-0.6B/batch8": {
+    "matching_traces": 8,
+    "total_traces": 8
+  },
+  "Qwen/Qwen3-0.6B/batch32": {
+    "matching_traces": 28,
+    "total_traces": 32
+  },
+  "Qwen/Qwen3-1.7B/batch1": {
+    "matching_traces": 0,
+    "total_traces": 1
+  },
+  "Qwen/Qwen3-1.7B/batch8": {
+    "matching_traces": 3,
+    "total_traces": 8
+  },
+  "Qwen/Qwen3-1.7B/batch32": {
+    "matching_traces": 13,
+    "total_traces": 32
+  },
+  "Qwen/Qwen3-4B/batch1": {
+    "matching_traces": 1,
+    "total_traces": 1
+  },
+  "Qwen/Qwen3-4B/batch8": {
+    "matching_traces": 6,
+    "total_traces": 8
+  },
+  "Qwen/Qwen3-4B/batch32": {
+    "matching_traces": 24,
+    "total_traces": 32
+  },
+  "Qwen/Qwen3-8B/batch1": {
+    "matching_traces": 1,
+    "total_traces": 1
+  },
+  "Qwen/Qwen3-8B/batch8": {
+    "matching_traces": 4,
+    "total_traces": 8
+  },
+  "Qwen/Qwen3-8B/batch32": {
+    "matching_traces": 16,
+    "total_traces": 32
+  }
+}

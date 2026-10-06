@@ -1,0 +1,49 @@
+{
+  "teacher_forced_tokens": [
+    0,
+    0,
+    0,
+    0,
+    220,
+    16,
+    15,
+    15
+  ],
+  "fork_tokens": [
+    0,
+    0,
+    0,
+    0,
+    220,
+    16,
+    15,
+    15
+  ],
+  "exact_tokens": true,
+  "hidden_comparisons": [
+    {
+      "step": 0,
+      "cosine": 0.9998244643211365,
+      "relative_l2": 0.018778447061777115,
+      "max_absolute": 0.5
+    },
+    {
+      "step": 1,
+      "cosine": 0.9998113512992859,
+      "relative_l2": 0.022703392431139946,
+      "max_absolute": 0.34375
+    },
+    {
+      "step": 2,
+      "cosine": 0.9998242259025574,
+      "relative_l2": 0.027579162269830704,
+      "max_absolute": 1.875
+    },
+    {
+      "step": 3,
+      "cosine": 0.9999161958694458,
+      "relative_l2": 0.013950496912002563,
+      "max_absolute": 0.25
+    }
+  ]
+}

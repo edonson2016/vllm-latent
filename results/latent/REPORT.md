@@ -1,5 +1,8 @@
 # Programmable latent decoding benchmark
 
+The [follow-up scaling report](../scaling/REPORT.md) adds 0.6B, 1.7B, and 4B
+models, fresh 8B controls, and measurements of existing latent-reasoning forks.
+
 This fork demonstrates per-request GPU transition programs inside vLLM's
 continuous batching and paged-attention execution. On one RTX A6000 with
 Qwen3-8B BF16, the initial fixed-work calibration measured approximately

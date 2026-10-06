@@ -1,0 +1,122 @@
+[
+  {
+    "kind": "token",
+    "batch": 1,
+    "graph_device_ms": 0.01908895969390869,
+    "all_capture_sizes_allocated_bytes": 39081472,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "token",
+    "batch": 8,
+    "graph_device_ms": 0.020772159099578857,
+    "all_capture_sizes_allocated_bytes": 39081472,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "token",
+    "batch": 32,
+    "graph_device_ms": 0.022935359477996825,
+    "all_capture_sizes_allocated_bytes": 39081472,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "soft",
+    "batch": 1,
+    "graph_device_ms": 0.9562732696533203,
+    "all_capture_sizes_allocated_bytes": 47909376,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "soft",
+    "batch": 8,
+    "graph_device_ms": 0.9798249816894531,
+    "all_capture_sizes_allocated_bytes": 47909376,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "soft",
+    "batch": 32,
+    "graph_device_ms": 1.1070191955566406,
+    "all_capture_sizes_allocated_bytes": 47909376,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "hidden",
+    "batch": 1,
+    "graph_device_ms": 0.020628159046173097,
+    "all_capture_sizes_allocated_bytes": 39389696,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "hidden",
+    "batch": 8,
+    "graph_device_ms": 0.022290880680084228,
+    "all_capture_sizes_allocated_bytes": 39389696,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "hidden",
+    "batch": 32,
+    "graph_device_ms": 0.024363839626312257,
+    "all_capture_sizes_allocated_bytes": 39389696,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "norm_hidden",
+    "batch": 1,
+    "graph_device_ms": 0.03247456073760986,
+    "all_capture_sizes_allocated_bytes": 39389696,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "norm_hidden",
+    "batch": 8,
+    "graph_device_ms": 0.03561599969863891,
+    "all_capture_sizes_allocated_bytes": 39389696,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "norm_hidden",
+    "batch": 32,
+    "graph_device_ms": 0.039325759410858155,
+    "all_capture_sizes_allocated_bytes": 39389696,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "entropy",
+    "batch": 1,
+    "graph_device_ms": 1.0144464111328124,
+    "all_capture_sizes_allocated_bytes": 47909376,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "entropy",
+    "batch": 8,
+    "graph_device_ms": 1.0829795074462891,
+    "all_capture_sizes_allocated_bytes": 47909376,
+    "width": 2048,
+    "vocab": 151936
+  },
+  {
+    "kind": "entropy",
+    "batch": 32,
+    "graph_device_ms": 1.4625205993652344,
+    "all_capture_sizes_allocated_bytes": 47909376,
+    "width": 2048,
+    "vocab": 151936
+  }
+]

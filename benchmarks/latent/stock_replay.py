@@ -30,18 +30,25 @@ def main():
     p.add_argument("--prefix-cache", action="store_true")
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--kind", choices=["soft", "token"], default="soft")
+    p.add_argument("--model", default="Qwen/Qwen3-8B")
+    p.add_argument("--revision", default="b968826d9c46dd6066d109eabc6255188de91218")
     args = p.parse_args()
-    model = "Qwen/Qwen3-8B"
+    model = args.model
     path = Path(
         hf_api().snapshot_download(
             model,
-            revision="b968826d9c46dd6066d109eabc6255188de91218",
+            revision=args.revision,
             local_files_only=True,
         )
     )
-    index = json.loads((path / "model.safetensors.index.json").read_text())
     name = "model.embed_tokens.weight"
-    with safe_open(path / index["weight_map"][name], framework="pt", device="cpu") as f:
+    index_path = path / "model.safetensors.index.json"
+    weights = (
+        path / json.loads(index_path.read_text())["weight_map"][name]
+        if index_path.exists()
+        else path / "model.safetensors"
+    )
+    with safe_open(weights, framework="pt", device="cpu") as f:
         embedding = f.get_tensor(name).to(device="cuda", dtype=torch.bfloat16)
     llm = LLM(
         model=str(path),
@@ -113,6 +120,8 @@ def main():
             tokens.append(ids)
     result = {
         "mode": "stock_public_api_replay",
+        "model": args.model,
+        "revision": args.revision,
         "prefix_cache": args.prefix_cache,
         "kind": args.kind,
         "steps": args.steps,

@@ -1,0 +1,45 @@
+All sweeps complete; fixed-position budgets and disabled controls match.
+External exact-trace checks: {'Qwen/Qwen3-0.6B/batch1/base=disabled': True, 'Qwen/Qwen3-0.6B/batch8/base=disabled': True, 'Qwen/Qwen3-0.6B/batch32/base=disabled': True, 'Qwen/Qwen3-1.7B/batch1/base=disabled': True, 'Qwen/Qwen3-1.7B/batch8/base=disabled': True, 'Qwen/Qwen3-1.7B/batch32/base=disabled': True, 'Qwen/Qwen3-4B/batch1/base=disabled': True, 'Qwen/Qwen3-4B/batch8/base=disabled': True, 'Qwen/Qwen3-4B/batch32/base=disabled': False, 'Qwen/Qwen3-8B/batch1/base=disabled': True, 'Qwen/Qwen3-8B/batch8/base=disabled': True, 'Qwen/Qwen3-8B/batch32/base=disabled': False} {'Qwen/Qwen3-0.6B/batch1/base=disabled': True, 'Qwen/Qwen3-0.6B/batch8/base=disabled': True, 'Qwen/Qwen3-0.6B/batch32/base=disabled': False, 'Qwen/Qwen3-1.7B/batch1/base=disabled': True, 'Qwen/Qwen3-1.7B/batch8/base=disabled': True, 'Qwen/Qwen3-1.7B/batch32/base=disabled': False, 'Qwen/Qwen3-4B/batch1/base=disabled': True, 'Qwen/Qwen3-4B/batch8/base=disabled': True, 'Qwen/Qwen3-4B/batch32/base=disabled': True, 'Qwen/Qwen3-8B/batch1/base=disabled': True, 'Qwen/Qwen3-8B/batch8/base=disabled': False, 'Qwen/Qwen3-8B/batch32/base=disabled': False}
+{
+  "timing_groups": 168,
+  "timed_repeats": 840,
+  "disabled_control_matches": 12,
+  "disabled_control_total": 12,
+  "default_token_control_matches": 9,
+  "default_token_control_total": 12,
+  "batch_invariant_token_checks": {
+    "1": true,
+    "8": true,
+    "32": true
+  },
+  "independent_reference_checks": {
+    "0.6B": {
+      "token": true,
+      "soft": true,
+      "hidden": true,
+      "stock_replay": true
+    },
+    "1.7B": {
+      "token": true,
+      "soft": true,
+      "hidden": false,
+      "stock_replay": true
+    },
+    "4B": {
+      "token": true,
+      "soft": true,
+      "hidden": false,
+      "stock_replay": true
+    },
+    "8B": {
+      "token": true,
+      "soft": true,
+      "hidden": true,
+      "stock_replay": true
+    }
+  },
+  "teacher_forced_audits": {
+    "1.7B": true,
+    "4B": true
+  }
+}

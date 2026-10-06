@@ -1,0 +1,26 @@
+{
+  "0.6B": {
+    "token": true,
+    "soft": true,
+    "hidden": true,
+    "stock_replay": true
+  },
+  "1.7B": {
+    "token": true,
+    "soft": true,
+    "hidden": false,
+    "stock_replay": true
+  },
+  "4B": {
+    "token": true,
+    "soft": true,
+    "hidden": false,
+    "stock_replay": true
+  },
+  "8B": {
+    "token": true,
+    "soft": true,
+    "hidden": true,
+    "stock_replay": true
+  }
+}
