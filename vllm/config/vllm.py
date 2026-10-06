@@ -1419,6 +1419,15 @@ class VllmConfig:
         # To give each torch profile run a unique instance name.
         self.instance_id = f"{time.time_ns()}"
 
+        if self.model_config is not None and isinstance(self.additional_config, dict):
+            latent = self.additional_config.get("latent_decode")
+            if latent is not None:
+                from vllm.v1.latent import DEFAULT_OPTIMIZATIONS
+
+                latent.setdefault("optimizations", list(DEFAULT_OPTIMIZATIONS))
+                if "fast_input" in latent["optimizations"]:
+                    self.model_config.enable_prompt_embeds = False
+
         if self.model_config is not None and self.model_config.is_submodel_config:
             # with_hf_config() view: the parent config was already validated,
             # and this view's empty architecture list makes the model-dependent checks

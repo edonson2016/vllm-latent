@@ -1,0 +1,24 @@
+--- a/vllm/v1/latent/kernels.py
++++ b/vllm/v1/latent/kernels.py
+@@ -4,6 +4,7 @@
+ 
+ import torch
+ 
++from vllm import envs
+ from vllm.triton_utils import tl, triton
+ 
+ 
+@@ -369,6 +370,12 @@
+     weights = prob.to(embedding.dtype)
+     graph = torch.cuda.CUDAGraph.get_currently_capturing_graph()
+     graph.begin_capture_to_if_node(gate.any())
+-    torch.mm(weights, embedding, out=output)
++    if envs.VLLM_BATCH_INVARIANT:
++        # mm.out bypasses vLLM's invariant matmul dispatch. Match the eager
++        # warmup's backend so capture neither changes arithmetic nor creates
++        # a first-use cuBLAS handle inside the conditional node.
++        output.copy_(weights @ embedding)
++    else:
++        torch.mm(weights, embedding, out=output)
+     graph.end_capture_to_conditional_node()
+     return output

@@ -1,0 +1,14 @@
+[
+  {
+    "label": "baseline-invariant",
+    "overlay": "/tmp/latent-baseline",
+    "modes": "token,entropy,mixed",
+    "invariant": true
+  },
+  {
+    "label": "optimized-invariant",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect",
+    "modes": "token,entropy,mixed",
+    "invariant": true
+  }
+]

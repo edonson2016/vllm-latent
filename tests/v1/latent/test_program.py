@@ -136,3 +136,154 @@ def test_cuda_graph_replays_new_rows_and_padded_batch():
         actual = graph(*args)
         for x, y in zip(expected, actual):
             torch.testing.assert_close(x, y)
+
+
+@pytest.mark.parametrize("kind", ["token", "soft", "hidden", "entropy"])
+def test_dependency_pruning_preserves_transition(kind):
+    from vllm.v1.latent.compiler import dependencies, inactive, optimize
+
+    original = Program(preset(kind, 3), 4, 7)
+    optimized = optimize(original)
+    args = (
+        torch.randn(4, 7),
+        torch.randn(4, 4),
+        torch.randn(4, 4),
+        torch.arange(4)[:, None],
+        torch.randn(4, 8),
+        torch.randn(7, 4),
+    )
+    actual_args = list(args)
+    live = dependencies(optimized)[1]
+    for i, name in enumerate(["logits", "hidden"]):
+        if name not in live:
+            actual_args[i] = None
+    for a, b in zip(original(*args), optimized(*actual_args)):
+        torch.testing.assert_close(a, b)
+    assert inactive(optimized, 3)
+    assert inactive(optimized, 0) == (kind == "token")
+
+
+def test_shared_expressions_preserve_per_request_policy_and_state():
+    from vllm.v1.latent.compiler import SharedProgram, optimize
+
+    programs = [
+        optimize(Program(preset(k, 3), 4, 7))
+        for k in ["soft", "entropy", "hidden", "token"]
+    ]
+    args = (
+        torch.randn(4, 7),
+        torch.randn(4, 4),
+        torch.randn(4, 4),
+        torch.arange(4)[:, None],
+        torch.randn(4, 8),
+        torch.randn(7, 4),
+    )
+    actual = SharedProgram(programs)(*args, torch.arange(4)[:, None])
+    for row, program in enumerate(programs):
+        expected = program(*(x[row : row + 1] for x in args[:-1]), args[-1])
+        for a, b in zip(actual, expected):
+            torch.testing.assert_close(a[row : row + 1], b)
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+def test_masked_expectation_and_captured_input_selection():
+    from vllm.v1.latent.kernels import latent_input, masked_expect
+
+    e = torch.randn(1003, 96, device="cuda", dtype=torch.bfloat16)
+    p = torch.randn(3, 1003, device="cuda").softmax(-1)
+    mask = torch.tensor([True, False, True], device="cuda")
+    result = masked_expect(p, e, mask)
+    expected = p.to(e.dtype) @ e
+    expected[1].zero_()
+    torch.testing.assert_close(result, expected, atol=0.002, rtol=0.02)
+    history = result.reshape(1, 3, 96)
+    ids = torch.tensor([10, 11, 12], device="cuda")
+    indices = torch.tensor([2, -1, 1], device="cuda")
+    actual = latent_input(ids, e, history, mask, indices)
+    torch.testing.assert_close(actual[0], result[2])
+    torch.testing.assert_close(actual[1:], e[ids[1:]])
+
+
+def test_headless_proof_requires_explicit_finite_fallback_contract():
+    from vllm.v1.latent.compiler import active_without_logits
+
+    spec = preset("hidden", 2)
+    program = Program(spec, 2, 3)
+    assert not active_without_logits(program, 0)
+    spec["fallback"] = "zero"
+    program = Program(spec, 2, 3)
+    assert active_without_logits(program, 0)
+    assert not active_without_logits(program, 2)
+    result, mask, _ = program(
+        None,
+        torch.tensor([[float("nan"), 1.0]]),
+        torch.ones(1, 2),
+        torch.zeros(1, 1),
+        torch.zeros(1, 8),
+        torch.ones(3, 2),
+    )
+    assert mask.item()
+    assert result.tolist() == [[0.0, 0.0]]
+
+
+def test_topk_is_explicit_and_k_one_selects_argmax_embedding():
+    spec = {
+        "ops": [["yes", "CONST", True], ["soft", "TOPK_EXPECT", "logits", 1]],
+        "embedding": "soft",
+        "latent": "yes",
+    }
+    e = torch.tensor([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
+    args = (
+        torch.tensor([[0.0, 2.0, 1.0]]),
+        torch.zeros(1, 2),
+        torch.zeros(1, 2),
+        torch.zeros(1, 1),
+        torch.zeros(1, 8),
+        e,
+    )
+    actual, _, _ = Program(spec, 2, 3)(*args)
+    torch.testing.assert_close(actual, e[1:2])
+
+
+def test_sharing_requires_reused_expectation_and_excludes_custom_projections():
+    from vllm.v1.latent.compiler import can_share
+
+    soft = Program(preset("soft"), 2, 3)
+    entropy = Program(preset("entropy"), 2, 3)
+    hidden = Program(preset("hidden"), 2, 3)
+    assert can_share([soft, entropy, hidden])
+    assert not can_share([soft, hidden])
+    projected = Program(
+        {
+            "ops": [["yes", "CONST", True], ["out", "PROJECT", "hidden", "w"]],
+            "embedding": "out",
+            "latent": "yes",
+        },
+        2,
+        3,
+        {"w": torch.eye(2)},
+    )
+    assert not can_share([soft, entropy, projected])
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+def test_conditional_expectation_replays_changing_gpu_predicates_exactly():
+    from vllm.v1.latent.kernels import conditional_expect
+
+    e = torch.randn(257, 96, device="cuda", dtype=torch.bfloat16)
+    p = torch.randn(3, 257, device="cuda").softmax(-1)
+    gate = torch.zeros(3, 1, device="cuda", dtype=torch.bool)
+    stream = torch.cuda.Stream()
+    stream.wait_stream(torch.cuda.current_stream())
+    with torch.cuda.stream(stream):
+        conditional_expect(p, e, gate)
+    stream.synchronize()
+    graph = torch.cuda.CUDAGraph()
+    with torch.cuda.graph(graph, stream=stream):
+        actual = conditional_expect(p, e, gate)
+    torch.cuda.current_stream().wait_stream(stream)
+    for mask in [[False] * 3, [True, False, True], [False] * 3, [True] * 3]:
+        gate.copy_(torch.tensor(mask, device="cuda")[:, None])
+        graph.replay()
+        expected = p.to(e.dtype) @ e if any(mask) else torch.zeros_like(actual)
+        torch.testing.assert_close(actual, expected, rtol=0, atol=0)

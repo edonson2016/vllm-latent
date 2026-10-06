@@ -8,6 +8,7 @@ validated at admission; all data-dependent decisions use tensor operations.
 """
 
 import math
+from typing import Any
 
 import torch
 
@@ -15,14 +16,21 @@ import torch
 class Program:
     def __init__(self, spec, width, vocab, constants=None):
         self.constants = constants or {}
+        self.fused_expect = False
+        self.gated_expect = False
+        self.conditional_expect = False
         if not isinstance(spec, dict) or set(spec) - {
             "ops",
             "embedding",
             "latent",
             "updates",
+            "fallback",
         }:
             raise ValueError("Invalid decode program fields")
         ops = spec.get("ops", [])
+        self.fallback = spec.get("fallback", "token")
+        if self.fallback not in {"token", "zero"}:
+            raise ValueError("fallback must be token or zero")
         if not isinstance(ops, list) or len(ops) > 64:
             raise ValueError("A program may contain at most 64 instructions")
         shapes = {"logits": vocab, "hidden": width, "token": width, "step": 1}
@@ -44,7 +52,7 @@ class Program:
                 if isinstance(args[0], bool):
                     booleans.add(dst)
             else:
-                refs = args[:-1] if op == "PROJECT" else args
+                refs = args[:-1] if op in {"PROJECT", "TOPK_EXPECT"} else args
                 if any(not isinstance(a, str) or a not in shapes for a in refs):
                     raise ValueError(f"Unknown register in {inst}")
                 dims = [shapes[a] for a in refs]
@@ -58,6 +66,15 @@ class Program:
                     if op in {"SOFTMAX", "ENTROPY", "EXPECT"} and dims[0] != vocab:
                         raise ValueError(f"{op} requires a vocabulary vector")
                     out = 1 if op == "ENTROPY" else width if op == "EXPECT" else dims[0]
+                elif op == "TOPK_EXPECT":
+                    if (
+                        len(args) != 2
+                        or dims[0] != vocab
+                        or type(args[1]) is not int
+                        or not 1 <= args[1] <= vocab
+                    ):
+                        raise ValueError("TOPK_EXPECT requires logits and integer k")
+                    out = width
                 elif op == "PROJECT":
                     if len(args) != 2 or args[1] not in self.constants:
                         raise ValueError("PROJECT requires a registered matrix")
@@ -105,25 +122,88 @@ class Program:
         ):
             raise ValueError("State updates must target s0..s7 with row scalars")
 
-    def __call__(self, logits, hidden, token, step, state, embedding):
+    def __call__(self, logits, hidden, token, step, state, embedding, cache=None):
+        if cache is None and getattr(self, "fused_expect", False):
+            cache = {}
         r = {"logits": logits, "hidden": hidden, "token": token, "step": step}
         r.update({f"s{i}": state[:, i : i + 1] for i in range(8)})
+        expressions: dict[str, Any] = {name: ("input", name) for name in r}
         for dst, op, args in self.ops:
+            refs = args[:-1] if op in {"PROJECT", "TOPK_EXPECT"} else args
+            key: tuple[Any, ...] = (
+                op,
+                tuple((type(a).__name__, a) for a in args)
+                if op == "CONST"
+                else tuple(expressions[a] for a in refs),
+                args[-1] if op in {"PROJECT", "TOPK_EXPECT"} else None,
+            )
+            if op in {"EXPECT", "SOFT_EXPECT"} and (
+                getattr(self, "fused_expect", False)
+                or getattr(self, "gated_expect", False)
+            ):
+                key = (*key, expressions.get(self.latent))
+            expressions[dst] = key
+            if cache is not None and key in cache:
+                r[dst] = cache[key]
+                continue
             if op == "CONST":
                 r[dst] = torch.full_like(
                     step,
                     args[0],
                     dtype=(torch.bool if isinstance(args[0], bool) else torch.float32),
                 )
+                if cache is not None:
+                    cache[key] = r[dst]
                 continue
             x = r[args[0]]
             if op == "SOFTMAX":
                 y = torch.softmax(x.float(), dim=-1)
             elif op == "ENTROPY":
-                p = torch.softmax(x.float(), dim=-1)
-                y = -(p * p.clamp_min(1e-30).log()).sum(-1, keepdim=True)
+                if getattr(self, "fused_expect", False):
+                    from vllm.v1.latent.kernels import soft_stats
+
+                    assert cache is not None
+                    stats_key = ("STATS", expressions[args[0]])
+                    if stats_key not in cache:
+                        cache[stats_key] = soft_stats(x)
+                    y = cache[stats_key][:, 2:3]
+                else:
+                    soft_key = ("SOFTMAX", (expressions[args[0]],), None)
+                    p = cache.get(soft_key) if cache is not None else None
+                    if p is None:
+                        p = torch.softmax(x.float(), dim=-1)
+                        if cache is not None:
+                            cache[soft_key] = p
+                    y = -(p * p.clamp_min(1e-30).log()).sum(-1, keepdim=True)
             elif op == "EXPECT":
-                y = x.to(embedding.dtype) @ embedding
+                if self.conditional_expect:
+                    from vllm.v1.latent.kernels import conditional_expect
+
+                    y = conditional_expect(x, embedding, r.get(self.latent))
+                elif getattr(self, "gated_expect", False):
+                    from vllm.v1.latent.kernels import gated_expect
+
+                    y = gated_expect(x, embedding, r.get(self.latent))
+                elif getattr(self, "fused_expect", False):
+                    from vllm.v1.latent.kernels import masked_expect
+
+                    y = masked_expect(x, embedding, r.get(self.latent))
+                else:
+                    y = x.to(embedding.dtype) @ embedding
+            elif op == "SOFT_EXPECT":
+                from vllm.v1.latent.kernels import fused_soft_expect
+
+                assert cache is not None
+                y = fused_soft_expect(
+                    x,
+                    embedding,
+                    r.get(self.latent),
+                    cache.get(("STATS", expressions[args[0]])),
+                )
+            elif op == "TOPK_EXPECT":
+                values, indices = x.float().topk(args[1], dim=-1)
+                weights = values.softmax(-1).to(embedding.dtype)
+                y = (embedding[indices] * weights.unsqueeze(-1)).sum(1)
             elif op == "NORM":
                 y = (
                     x.float()
@@ -155,12 +235,17 @@ class Program:
                 elif op == "OR":
                     y = x | z
             r[dst] = y
+            if cache is not None:
+                cache[key] = y
         next_state = torch.cat(
             [r[self.updates.get(f"s{i}", f"s{i}")].float() for i in range(8)], dim=1
         )
         result = r[self.output].to(token.dtype)
         finite = torch.isfinite(result).all(-1, keepdim=True)
         latent = r[self.latent] & finite
+        if self.fallback == "zero":
+            result = torch.where(finite, result, 0)
+            latent = r[self.latent]
         # A bad numeric result falls back to the sampled token, never poisons KV.
         result = torch.where(latent, result, token)
         next_state = torch.where(torch.isfinite(next_state), next_state, state)

@@ -3623,7 +3623,6 @@ class GPUModelRunner(
             model_kwargs = self._init_model_kwargs()
 
         if self.latent_runner is not None:
-            assert inputs_embeds is not None
             self.latent_runner.inject(scheduler_output, inputs_embeds)
 
         if self.uses_mrope:
@@ -4485,7 +4484,15 @@ class GPUModelRunner(
                     )
 
                 sample_hidden_states = hidden_states[logits_indices]
-                logits = self.model.compute_logits(sample_hidden_states)
+                skip_latent_head = (
+                    self.latent_runner is not None
+                    and self.latent_runner.can_skip_head(scheduler_output)
+                )
+                logits = (
+                    None
+                    if skip_latent_head
+                    else self.model.compute_logits(sample_hidden_states)
+                )
             else:
                 # Rare case.
                 assert not self.is_pooling_model
@@ -4588,17 +4595,35 @@ class GPUModelRunner(
                 scheduler_output, grammar_output, self.input_batch, logits
             )
 
-        transition_logits = logits.clone() if self.latent_runner is not None else None
+        transition_logits = (
+            logits.clone()
+            if logits is not None
+            and self.latent_runner is not None
+            and self.latent_runner.needs_logits(scheduler_output)
+            else None
+        )
         with record_function_or_nullcontext("gpu_model_runner: sample"):
-            sampler_output = self._sample(logits, spec_decode_metadata)
+            if logits is None and self.latent_runner is not None:
+                sampler_output = SamplerOutput(
+                    sampled_token_ids=torch.zeros(
+                        (sample_hidden_states.shape[0], 1),
+                        device=self.device,
+                        dtype=torch.long,
+                    ),
+                    logprobs_tensors=None,
+                )
+            else:
+                sampler_output = self._sample(logits, spec_decode_metadata)
 
         if self.latent_runner is not None:
-            self.latent_runner.transition(
+            transitioned_ids = self.latent_runner.transition(
                 scheduler_output,
                 transition_logits,
                 sample_hidden_states,
                 sampler_output.sampled_token_ids,
             )
+            if transitioned_ids is not None:
+                sampler_output.sampled_token_ids = transitioned_ids
 
         self._update_states_after_model_execute(
             sampler_output.sampled_token_ids, scheduler_output
@@ -5308,6 +5333,8 @@ class GPUModelRunner(
                     self.model = model_loader.load_model(
                         vllm_config=self.vllm_config, model_config=self.model_config
                     )
+                if self.latent_runner is not None:
+                    self.latent_runner.install_embedding(self.model)
                 lookback_depth = getattr(self.model, "token_lookback_depth", 0)
                 if lookback_depth > 0:
                     self.lookback_token_ids = self._make_buffer(

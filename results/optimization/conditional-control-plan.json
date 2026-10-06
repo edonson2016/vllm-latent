@@ -1,0 +1,7 @@
+[
+  {
+    "label": "no-conditional",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head",
+    "modes": "entropy,mixed"
+  }
+]

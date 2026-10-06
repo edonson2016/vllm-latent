@@ -1,0 +1,14 @@
+[
+  {
+    "label": "head-control-invariant",
+    "opts": "prune,fast_input,staging,skip_inactive,share,conditional_expect",
+    "modes": "hidden_zero",
+    "invariant": true
+  },
+  {
+    "label": "head-skip-invariant",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect",
+    "modes": "hidden_zero",
+    "invariant": true
+  }
+]

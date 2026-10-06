@@ -1,0 +1,48 @@
+[
+  {
+    "label": "stock-start",
+    "opts": "",
+    "overlay": "",
+    "modes": "token"
+  },
+  {
+    "label": "baseline",
+    "opts": "",
+    "overlay": "/tmp/latent-baseline"
+  },
+  {
+    "label": "prune",
+    "opts": "prune"
+  },
+  {
+    "label": "fast_input",
+    "opts": "fast_input"
+  },
+  {
+    "label": "skip",
+    "opts": "skip_inactive"
+  },
+  {
+    "label": "staging",
+    "opts": "staging"
+  },
+  {
+    "label": "core",
+    "opts": "prune,fast_input,staging,skip_inactive"
+  },
+  {
+    "label": "shared",
+    "opts": "prune,fast_input,staging,skip_inactive,share"
+  },
+  {
+    "label": "kernel",
+    "opts": "prune,fast_input,staging,skip_inactive,fused_expect",
+    "modes": "soft,mixed"
+  },
+  {
+    "label": "stock-end",
+    "opts": "",
+    "overlay": "",
+    "modes": "token"
+  }
+]

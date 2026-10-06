@@ -1,0 +1,339 @@
+{
+  "invariant": [
+    {
+      "model": "0.6B",
+      "mode": "token",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 1.580139784142375,
+      "new_seconds": 1.523082748055458,
+      "latency_reduction_percent": 3.610885357075211
+    },
+    {
+      "model": "0.6B",
+      "mode": "entropy",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 2.222112376242876,
+      "new_seconds": 1.5735453870147467,
+      "latency_reduction_percent": 29.186957246722123
+    },
+    {
+      "model": "0.6B",
+      "mode": "mixed",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 2.8032546676695347,
+      "new_seconds": 1.840281791985035,
+      "latency_reduction_percent": 34.351958342945
+    },
+    {
+      "model": "1.7B",
+      "mode": "token",
+      "batch": 32,
+      "exact_requests": 25,
+      "requests": 32,
+      "differences": [
+        {
+          "request": 9,
+          "first_position": 108
+        },
+        {
+          "request": 14,
+          "first_position": 108
+        },
+        {
+          "request": 16,
+          "first_position": 108
+        },
+        {
+          "request": 19,
+          "first_position": 79
+        },
+        {
+          "request": 24,
+          "first_position": 79
+        },
+        {
+          "request": 26,
+          "first_position": 108
+        },
+        {
+          "request": 30,
+          "first_position": 59
+        }
+      ],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 2.880922643467784,
+      "new_seconds": 2.8184409644454718,
+      "latency_reduction_percent": 2.1688079394975524
+    },
+    {
+      "model": "1.7B",
+      "mode": "entropy",
+      "batch": 32,
+      "exact_requests": 25,
+      "requests": 32,
+      "differences": [
+        {
+          "request": 9,
+          "first_position": 108
+        },
+        {
+          "request": 14,
+          "first_position": 108
+        },
+        {
+          "request": 16,
+          "first_position": 108
+        },
+        {
+          "request": 19,
+          "first_position": 79
+        },
+        {
+          "request": 24,
+          "first_position": 79
+        },
+        {
+          "request": 26,
+          "first_position": 108
+        },
+        {
+          "request": 30,
+          "first_position": 59
+        }
+      ],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 3.5373914893716574,
+      "new_seconds": 2.8689501974731684,
+      "latency_reduction_percent": 18.89644654562177
+    },
+    {
+      "model": "1.7B",
+      "mode": "mixed",
+      "batch": 32,
+      "exact_requests": 23,
+      "requests": 32,
+      "differences": [
+        {
+          "request": 1,
+          "first_position": 74
+        },
+        {
+          "request": 6,
+          "first_position": 70
+        },
+        {
+          "request": 16,
+          "first_position": 108
+        },
+        {
+          "request": 17,
+          "first_position": 69
+        },
+        {
+          "request": 18,
+          "first_position": 77
+        },
+        {
+          "request": 19,
+          "first_position": 79
+        },
+        {
+          "request": 24,
+          "first_position": 79
+        },
+        {
+          "request": 29,
+          "first_position": 76
+        },
+        {
+          "request": 30,
+          "first_position": 64
+        }
+      ],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 4.145736021921039,
+      "new_seconds": 3.158878520131111,
+      "latency_reduction_percent": 23.804156766658778
+    },
+    {
+      "model": "4B",
+      "mode": "token",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 5.081121571362019,
+      "new_seconds": 5.0052968300879,
+      "latency_reduction_percent": 1.492283548212625
+    },
+    {
+      "model": "4B",
+      "mode": "soft",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 5.690847150981426,
+      "new_seconds": 5.338644772768021,
+      "latency_reduction_percent": 6.188927041427672
+    },
+    {
+      "model": "4B",
+      "mode": "hidden",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 5.124445848166943,
+      "new_seconds": 5.057125497609377,
+      "latency_reduction_percent": 1.3137098635093714
+    },
+    {
+      "model": "4B",
+      "mode": "entropy",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 5.784216260537505,
+      "new_seconds": 5.099234629422426,
+      "latency_reduction_percent": 11.842254858075208
+    },
+    {
+      "model": "4B",
+      "mode": "mixed",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 6.404019525274634,
+      "new_seconds": 5.385758711025119,
+      "latency_reduction_percent": 15.900339001634256
+    },
+    {
+      "model": "8B",
+      "mode": "token",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 7.292430741712451,
+      "new_seconds": 7.234090888872743,
+      "latency_reduction_percent": 0.8000055798405681
+    },
+    {
+      "model": "8B",
+      "mode": "soft",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 7.976028563454747,
+      "new_seconds": 7.635038083419204,
+      "latency_reduction_percent": 4.275191310095394
+    },
+    {
+      "model": "8B",
+      "mode": "hidden",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 7.373611846938729,
+      "new_seconds": 7.318636205047369,
+      "latency_reduction_percent": 0.7455727672210477
+    },
+    {
+      "model": "8B",
+      "mode": "entropy",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 8.059669246897101,
+      "new_seconds": 7.370524825528264,
+      "latency_reduction_percent": 8.550529807834872
+    },
+    {
+      "model": "8B",
+      "mode": "mixed",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 8.753981182351708,
+      "new_seconds": 7.676120486110449,
+      "latency_reduction_percent": 12.312805725630982
+    }
+  ],
+  "head": [
+    {
+      "mode": "hidden_zero",
+      "batch": 1,
+      "exact_requests": 1,
+      "requests": 1,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 3.707994604483247,
+      "new_seconds": 3.5675136167556047,
+      "latency_reduction_percent": 3.7885974148341495
+    },
+    {
+      "mode": "hidden_zero",
+      "batch": 32,
+      "exact_requests": 32,
+      "requests": 32,
+      "differences": [],
+      "old_stable": true,
+      "new_stable": true,
+      "old_seconds": 3.7436149455606937,
+      "new_seconds": 3.6441768780350685,
+      "latency_reduction_percent": 2.656204470054868
+    }
+  ],
+  "preemption": {
+    "exact_requests": 12,
+    "requests": 12,
+    "small_cache_preemptions": 4,
+    "large_cache_preemptions": 0
+  }
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "label": "stock-start",
+    "overlay": "",
+    "modes": "token"
+  },
+  {
+    "label": "baseline",
+    "overlay": "/tmp/latent-baseline"
+  },
+  {
+    "label": "core",
+    "opts": "prune,fast_input,staging,skip_inactive"
+  },
+  {
+    "label": "without-prune",
+    "opts": "fast_input,staging,skip_inactive"
+  },
+  {
+    "label": "without-fast_input",
+    "opts": "prune,staging,skip_inactive"
+  },
+  {
+    "label": "without-staging",
+    "opts": "prune,fast_input,skip_inactive"
+  },
+  {
+    "label": "without-skip_inactive",
+    "opts": "prune,fast_input,staging"
+  },
+  {
+    "label": "shared",
+    "opts": "prune,fast_input,staging,skip_inactive,share",
+    "modes": "mixed"
+  },
+  {
+    "label": "gated",
+    "opts": "prune,fast_input,staging,skip_inactive,gated_expect",
+    "modes": "soft,entropy,mixed"
+  },
+  {
+    "label": "shared-gated",
+    "opts": "prune,fast_input,staging,skip_inactive,share,gated_expect",
+    "modes": "mixed"
+  },
+  {
+    "label": "head-control",
+    "opts": "prune,fast_input,staging,skip_inactive",
+    "modes": "hidden_zero"
+  },
+  {
+    "label": "head-skip",
+    "opts": "prune,fast_input,staging,skip_inactive,skip_head",
+    "modes": "hidden_zero"
+  },
+  {
+    "label": "topk",
+    "opts": "prune,fast_input,staging,skip_inactive",
+    "modes": "topk"
+  },
+  {
+    "label": "stock-end",
+    "overlay": "",
+    "modes": "token"
+  }
+]

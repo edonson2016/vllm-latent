@@ -10,15 +10,26 @@ class GraphProgram:
         self.graphs = {}
         self.embedding = embedding
         vocab, width = embedding.shape
+        from vllm.v1.latent.compiler import dependencies
+
+        live = (
+            dependencies(program)[1]
+            if hasattr(program, "live")
+            else {"logits", "hidden"}
+        )
         batch = 1
         stream = torch.cuda.Stream(device=embedding.device)
         stream.wait_stream(torch.cuda.current_stream())
         while batch < 2 * max_batch:
             inputs = (
-                torch.zeros(batch, vocab, device=embedding.device),
+                torch.zeros(batch, vocab, device=embedding.device)
+                if "logits" in live
+                else None,
                 torch.zeros(
                     batch, width, device=embedding.device, dtype=embedding.dtype
-                ),
+                )
+                if "hidden" in live
+                else None,
                 torch.zeros(
                     batch, width, device=embedding.device, dtype=embedding.dtype
                 ),
@@ -37,10 +48,11 @@ class GraphProgram:
         torch.cuda.current_stream().wait_stream(stream)
 
     def __call__(self, logits, hidden, token, step, state, embedding):
-        n = logits.shape[0]
+        n = token.shape[0]
         size = 1 << (n - 1).bit_length()
         graph, inputs, outputs = self.graphs[size]
         for dst, src in zip(inputs, (logits, hidden, token, step, state)):
-            dst[:n].copy_(src)
+            if dst is not None:
+                dst[:n].copy_(src)
         graph.replay()
         return tuple(out[:n] for out in outputs)

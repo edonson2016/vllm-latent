@@ -1,0 +1,1545 @@
+{
+  "timing_groups": 144,
+  "timed_generations": 1296,
+  "hashes": {
+    "baseline": [
+      "6ebfe7332958db15cee3f6ea66758403ff82265bc9304ae25b69119ae7b40824"
+    ],
+    "optimized": [
+      "84939159613b3a2fc325ee3a932fc2e1037bbfdc84f03482c3c047703b8222f2"
+    ]
+  },
+  "controls": [
+    {
+      "model": "0.6B",
+      "batch": 1,
+      "stock_seconds": 0.4552079066634178,
+      "drift_percent": 0.2236890803474889
+    },
+    {
+      "model": "0.6B",
+      "batch": 8,
+      "stock_seconds": 0.5221211584284902,
+      "drift_percent": -0.03442895770499055
+    },
+    {
+      "model": "0.6B",
+      "batch": 32,
+      "stock_seconds": 0.6787818381562829,
+      "drift_percent": -1.570184829536947
+    },
+    {
+      "model": "1.7B",
+      "batch": 1,
+      "stock_seconds": 0.8908115308731794,
+      "drift_percent": -0.41967753247430517
+    },
+    {
+      "model": "1.7B",
+      "batch": 8,
+      "stock_seconds": 0.9671898502856493,
+      "drift_percent": -0.12219182325098332
+    },
+    {
+      "model": "1.7B",
+      "batch": 32,
+      "stock_seconds": 1.1354434974491596,
+      "drift_percent": -0.7798732541431264
+    },
+    {
+      "model": "4B",
+      "batch": 1,
+      "stock_seconds": 1.8274035807698965,
+      "drift_percent": 0.01267522528010101
+    },
+    {
+      "model": "4B",
+      "batch": 8,
+      "stock_seconds": 1.888219096697867,
+      "drift_percent": -0.21922119377211224
+    },
+    {
+      "model": "4B",
+      "batch": 32,
+      "stock_seconds": 2.134511921554804,
+      "drift_percent": 0.0419316182524998
+    },
+    {
+      "model": "8B",
+      "batch": 1,
+      "stock_seconds": 3.147731587290764,
+      "drift_percent": -0.0861304163261356
+    },
+    {
+      "model": "8B",
+      "batch": 8,
+      "stock_seconds": 3.2440166296437383,
+      "drift_percent": -0.04096308371459578
+    },
+    {
+      "model": "8B",
+      "batch": 32,
+      "stock_seconds": 3.6656156117096543,
+      "drift_percent": -0.05880931543704726
+    }
+  ],
+  "traces": [
+    {
+      "model": "0.6B",
+      "mode": "token",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": 1
+    },
+    {
+      "model": "0.6B",
+      "mode": "hidden",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "soft",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "entropy",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "mixed",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "token",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": 8
+    },
+    {
+      "model": "0.6B",
+      "mode": "hidden",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "soft",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "entropy",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "mixed",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "token",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": 32
+    },
+    {
+      "model": "0.6B",
+      "mode": "hidden",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "soft",
+      "batch": 32,
+      "baseline_stable": false,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "entropy",
+      "batch": 32,
+      "baseline_stable": false,
+      "optimized_stable": false,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "0.6B",
+      "mode": "mixed",
+      "batch": 32,
+      "baseline_stable": false,
+      "optimized_stable": true,
+      "exact_requests": 15,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "token",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": 1
+    },
+    {
+      "model": "1.7B",
+      "mode": "hidden",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "soft",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "entropy",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "mixed",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "token",
+      "batch": 8,
+      "baseline_stable": false,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": 8
+    },
+    {
+      "model": "1.7B",
+      "mode": "hidden",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "soft",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "entropy",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "mixed",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "token",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": 32
+    },
+    {
+      "model": "1.7B",
+      "mode": "hidden",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "soft",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "entropy",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 23,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "1.7B",
+      "mode": "mixed",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 24,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "token",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": 1
+    },
+    {
+      "model": "4B",
+      "mode": "hidden",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "soft",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "entropy",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "mixed",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "token",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": 6
+    },
+    {
+      "model": "4B",
+      "mode": "hidden",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "soft",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "entropy",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "mixed",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 8,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "token",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": 22
+    },
+    {
+      "model": "4B",
+      "mode": "hidden",
+      "batch": 32,
+      "baseline_stable": false,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "soft",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "entropy",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 32,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "4B",
+      "mode": "mixed",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 29,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "token",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 0,
+      "requests": 1,
+      "stock_exact_requests": 1
+    },
+    {
+      "model": "8B",
+      "mode": "hidden",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 0,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "soft",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "entropy",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 0,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "mixed",
+      "batch": 1,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 0,
+      "requests": 1,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "token",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 3,
+      "requests": 8,
+      "stock_exact_requests": 4
+    },
+    {
+      "model": "8B",
+      "mode": "hidden",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 0,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "soft",
+      "batch": 8,
+      "baseline_stable": false,
+      "optimized_stable": true,
+      "exact_requests": 0,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "entropy",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 3,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "mixed",
+      "batch": 8,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 3,
+      "requests": 8,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "token",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 18,
+      "requests": 32,
+      "stock_exact_requests": 9
+    },
+    {
+      "model": "8B",
+      "mode": "hidden",
+      "batch": 32,
+      "baseline_stable": false,
+      "optimized_stable": true,
+      "exact_requests": 1,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "soft",
+      "batch": 32,
+      "baseline_stable": false,
+      "optimized_stable": false,
+      "exact_requests": 2,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "entropy",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": true,
+      "exact_requests": 18,
+      "requests": 32,
+      "stock_exact_requests": null
+    },
+    {
+      "model": "8B",
+      "mode": "mixed",
+      "batch": 32,
+      "baseline_stable": true,
+      "optimized_stable": false,
+      "exact_requests": 9,
+      "requests": 32,
+      "stock_exact_requests": null
+    }
+  ],
+  "quality": [
+    {
+      "model": "0.6B",
+      "label": "stock-start",
+      "mode": "token",
+      "correct": 53,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "baseline",
+      "mode": "token",
+      "correct": 53,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "baseline",
+      "mode": "soft",
+      "correct": 53,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "baseline",
+      "mode": "hidden",
+      "correct": 52,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "optimized",
+      "mode": "token",
+      "correct": 53,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "optimized",
+      "mode": "soft",
+      "correct": 53,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "optimized",
+      "mode": "hidden",
+      "correct": 52,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "0.6B",
+      "label": "optimized",
+      "mode": "topk",
+      "correct": 52,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "stock-start",
+      "mode": "token",
+      "correct": 54,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "baseline",
+      "mode": "token",
+      "correct": 54,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "baseline",
+      "mode": "soft",
+      "correct": 55,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "baseline",
+      "mode": "hidden",
+      "correct": 46,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "optimized",
+      "mode": "token",
+      "correct": 54,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "optimized",
+      "mode": "soft",
+      "correct": 55,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "optimized",
+      "mode": "hidden",
+      "correct": 46,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "1.7B",
+      "label": "optimized",
+      "mode": "topk",
+      "correct": 55,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "4B",
+      "label": "stock-start",
+      "mode": "token",
+      "correct": 57,
+      "total": 64,
+      "strict_format_correct": 22
+    },
+    {
+      "model": "4B",
+      "label": "baseline",
+      "mode": "token",
+      "correct": 57,
+      "total": 64,
+      "strict_format_correct": 22
+    },
+    {
+      "model": "4B",
+      "label": "baseline",
+      "mode": "soft",
+      "correct": 47,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "4B",
+      "label": "baseline",
+      "mode": "hidden",
+      "correct": 31,
+      "total": 64,
+      "strict_format_correct": 2
+    },
+    {
+      "model": "4B",
+      "label": "optimized",
+      "mode": "token",
+      "correct": 57,
+      "total": 64,
+      "strict_format_correct": 22
+    },
+    {
+      "model": "4B",
+      "label": "optimized",
+      "mode": "soft",
+      "correct": 47,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "4B",
+      "label": "optimized",
+      "mode": "hidden",
+      "correct": 31,
+      "total": 64,
+      "strict_format_correct": 2
+    },
+    {
+      "model": "4B",
+      "label": "optimized",
+      "mode": "topk",
+      "correct": 47,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "8B",
+      "label": "stock-start",
+      "mode": "token",
+      "correct": 57,
+      "total": 64,
+      "strict_format_correct": 32
+    },
+    {
+      "model": "8B",
+      "label": "baseline",
+      "mode": "token",
+      "correct": 58,
+      "total": 64,
+      "strict_format_correct": 31
+    },
+    {
+      "model": "8B",
+      "label": "baseline",
+      "mode": "soft",
+      "correct": 56,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "8B",
+      "label": "baseline",
+      "mode": "hidden",
+      "correct": 43,
+      "total": 64,
+      "strict_format_correct": 1
+    },
+    {
+      "model": "8B",
+      "label": "optimized",
+      "mode": "token",
+      "correct": 58,
+      "total": 64,
+      "strict_format_correct": 32
+    },
+    {
+      "model": "8B",
+      "label": "optimized",
+      "mode": "soft",
+      "correct": 56,
+      "total": 64,
+      "strict_format_correct": 0
+    },
+    {
+      "model": "8B",
+      "label": "optimized",
+      "mode": "hidden",
+      "correct": 43,
+      "total": 64,
+      "strict_format_correct": 1
+    },
+    {
+      "model": "8B",
+      "label": "optimized",
+      "mode": "topk",
+      "correct": 55,
+      "total": 64,
+      "strict_format_correct": 0
+    }
+  ],
+  "quality_changes": [
+    {
+      "model": "0.6B",
+      "mode": "token",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "0.6B",
+      "mode": "soft",
+      "exact_sequences": 63,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "0.6B",
+      "mode": "hidden",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "1.7B",
+      "mode": "token",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "1.7B",
+      "mode": "soft",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "1.7B",
+      "mode": "hidden",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "4B",
+      "mode": "token",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "4B",
+      "mode": "soft",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "4B",
+      "mode": "hidden",
+      "exact_sequences": 64,
+      "correctness_flips": 0,
+      "total": 64
+    },
+    {
+      "model": "8B",
+      "mode": "token",
+      "exact_sequences": 54,
+      "correctness_flips": 2,
+      "total": 64
+    },
+    {
+      "model": "8B",
+      "mode": "soft",
+      "exact_sequences": 52,
+      "correctness_flips": 4,
+      "total": 64
+    },
+    {
+      "model": "8B",
+      "mode": "hidden",
+      "exact_sequences": 49,
+      "correctness_flips": 2,
+      "total": 64
+    }
+  ],
+  "references": [
+    {
+      "model": "0.6B",
+      "label": "baseline",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          13,
+          715,
+          151668,
+          271
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          13,
+          715,
+          151668,
+          271
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": true
+      }
+    },
+    {
+      "model": "0.6B",
+      "label": "optimized",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          13,
+          715,
+          151668,
+          271
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          13,
+          715,
+          151668,
+          271
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": true
+      }
+    },
+    {
+      "model": "1.7B",
+      "label": "optimized",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          362,
+          5426,
+          34192,
+          220
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          220,
+          374,
+          279,
+          5461
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": false
+      }
+    },
+    {
+      "model": "4B",
+      "label": "baseline",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          198,
+          32313,
+          11
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          32313,
+          11,
+          773
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": false
+      }
+    },
+    {
+      "model": "4B",
+      "label": "optimized",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          198,
+          32313,
+          11
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          32313,
+          11,
+          773
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": false
+      }
+    },
+    {
+      "model": "8B",
+      "label": "baseline",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          32313,
+          11,
+          773
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          32313,
+          11,
+          773
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": true
+      }
+    },
+    {
+      "model": "8B",
+      "label": "optimized",
+      "reference": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          32313,
+          11,
+          773
+        ]
+      },
+      "tokens": {
+        "token": [
+          151667,
+          198,
+          32313,
+          11,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "soft": [
+          0,
+          0,
+          0,
+          0,
+          773,
+          358,
+          1184,
+          311
+        ],
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          198,
+          32313,
+          11,
+          773
+        ]
+      },
+      "matches": {
+        "token": true,
+        "soft": true,
+        "hidden": true
+      }
+    }
+  ]
+}

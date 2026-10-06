@@ -4,6 +4,8 @@
 > GPU-resident decode-transition programs to vLLM 0.31.0. Start with the
 > [implementation guide](LATENT_DECODE.md), the [8B benchmark report](results/latent/REPORT.md),
 > and the [model-size and existing-fork comparison](results/scaling/REPORT.md).
+> The [optimization report](results/optimization/REPORT.md) measures the optimized
+> runtime and individual changes across 0.6B–8B models.
 > This is an experimental single-GPU implementation; supported features and
 > limitations are documented in the guide.
 

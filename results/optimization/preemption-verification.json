@@ -1,0 +1,6 @@
+{
+  "exact_requests": 12,
+  "requests": 12,
+  "small_cache_preemptions": 4,
+  "large_cache_preemptions": 0
+}

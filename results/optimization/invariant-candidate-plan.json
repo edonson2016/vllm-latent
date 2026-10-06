@@ -1,0 +1,8 @@
+[
+  {
+    "label": "optimized-invariant-fixed",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect",
+    "modes": "token,entropy,mixed",
+    "invariant": true
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "upstream": "db9527a46873454610df6dbedf79a36d6bf1a7f6",
+  "previous_fork": "d5a9fa98c504d3360d5c49616f444697d2d492b8",
+  "primary_measured_digest": "84939159613b3a2fc325ee3a932fc2e1037bbfdc84f03482c3c047703b8222f2",
+  "shipped_digest": "a9c2c468dd706a17a515b0cbe6da13d8787192ed6e8f918b945c90b195ff9159",
+  "digest_definition": "SHA256 of concatenated sorted vllm/v1/latent/*.py, then gpu_model_runner.py",
+  "final_file_hashes": {
+    "vllm/v1/latent/__init__.py": "5c90a8ee0e44bfced4216296e8c709b33e89fc8da0b996b66c62789b9acac75e",
+    "vllm/v1/latent/compiler.py": "7c0ada607221293a147231482c058f87d08d142233e7b35fd5592b9d660b1602",
+    "vllm/v1/latent/graph.py": "986c94846d7eeabd313a3281e6fe9ff81c6ab7efb992b86531c208d324f03c8a",
+    "vllm/v1/latent/kernels.py": "17269c76850021237efcb4ce599f4a4ff81b40ab94afd4dd4d47a99da73262c5",
+    "vllm/v1/latent/program.py": "edbe4994011f5edca7f5faf0f55bd36d9d3ceba24c4059498de2c836e149363d",
+    "vllm/v1/latent/runner.py": "f1e0519c9b4aa50c78925bf97c44bd7064ffe4a8b68d4d2375a8cebe058e2981",
+    "vllm/v1/latent/staging.py": "4b28119b2741f08b083ad2c4b90c99b6202b870a1f9259fb0dde44b481c087b3",
+    "vllm/v1/latent/validation.py": "7c1a166b10c9a6c7fa72aa25ecb280b282b3fe5e7ed6697a5f67c4bbabdc0739",
+    "vllm/v1/worker/gpu_model_runner.py": "b3309eef727ee8a3ca2e2261223a77e7204845ec51267e86c2143d8bd6104635",
+    "vllm/config/vllm.py": "e2f9b81b2c7bb010902ff9316c507bd57390cef92e167e936cb2b28ba16a4715"
+  },
+  "archive_hashes": {
+    "screen-v1-sources.tar.gz": "48bc2f4d450f1943e9436a3f798b0b212966d8d822385c2c77480767474bef72",
+    "ablation-v2-sources.tar.gz": "ec5bdbfd75983fbb3fe5b74f43182279acada69b84aecb0e1b22806b2a1a5dfd",
+    "release-measured-sources.tar.gz": "8a6b076f1968d714ee1db8cdc0d0469ffbc638dcb1d4deee2344852b2a52f97b"
+  },
+  "compatibility_change": "Only the VLLM_BATCH_INVARIANT expectation branch changes; standard cuBLAS branch remains identical. See invariant-compatibility.patch.",
+  "final_standard_smoke": "compatibility-smoke.jsonl",
+  "gpu": "NVIDIA RTX A6000 48GB",
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0",
+  "primary_image": "vllm/vllm-openai@sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3"
+}

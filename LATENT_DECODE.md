@@ -10,7 +10,9 @@ programs in the same continuously scheduled batch.
 The implemented API is for bounded research experiments. It returns diagnostic
 token sequences, requires an explicit generation budget, and does not reproduce
 every policy or the accuracy results of the cited reasoning frameworks.
-See [the measured results](results/latent/REPORT.md) for the tested scope.
+See [the optimization experiments](results/optimization/REPORT.md), the
+[original results](results/latent/REPORT.md), and the
+[scaling comparison](results/scaling/REPORT.md) for the tested scope.
 
 ## The transition contract
 
@@ -55,7 +57,6 @@ from vllm.v1.latent.program import preset
 llm = LLM(
     model="Qwen/Qwen3-8B",
     dtype="bfloat16",
-    enable_prompt_embeds=True,
     enable_prefix_caching=False,
     async_scheduling=False,
     max_num_seqs=32,
@@ -94,6 +95,7 @@ Instructions have the form `[destination, opcode, operands...]`.
 | SOFTMAX | FP32 softmax of a vocabulary-width register |
 | ENTROPY | Entropy of softmax of a vocabulary-width logit register |
 | EXPECT | Vocabulary weights multiplied by input embedding table |
+| TOPK_EXPECT | Explicit approximation: top-k logits, normalized weights, embedding mixture |
 | PROJECT | Register multiplied by a named operator-provided matrix |
 | NORM | RMS normalization with epsilon `1e-6`, no learned gain |
 | SILU | SiLU activation |
@@ -127,15 +129,48 @@ its data; the worker loads it on the GPU. Requests cannot supply Python code,
 import modules, or choose filesystem paths. Malformed programs fail validation
 before scheduler admission. Numeric nonfinite outputs fall back to the sampled
 token embedding; nonfinite state updates retain the previous state.
+An optional program field `"fallback": "zero"` instead replaces a nonfinite
+latent vector with a zero vector while retaining the latent mask. This explicit
+contract permits skipping the LM head in eligible greedy hidden-only phases.
+It is never inferred from a model or silently substituted for token fallback.
 
 ## Execution and cache correctness
 
-At first admission of a new program, the worker captures CUDA graphs for
-power-of-two group sizes. Each step groups rows by their static program identity,
-copies tensor inputs into fixed graph buffers, replays each graph, and scatters
-the resulting embeddings into request-owned history. Predicates and state
-updates stay on the GPU. `cuda_graphs=False` provides an eager debugging backend;
-`compile=True` optionally uses fullgraph `torch.compile` in that backend.
+The default optimization profile is
+`prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect`.
+Dependency analysis eliminates unused program inputs. A captured input-selection
+kernel reads either the original token embedding or a stored latent vector;
+`enable_prompt_embeds` is therefore disabled for this path. At admission the
+worker captures gather, transition, and state/history commit for power-of-two
+batch sizes. Programs with a common dense expectation can share execution;
+programs with distinct projections remain grouped. Stateless phases proven
+inactive from their position skip transition execution entirely. Predicates
+depending on model values and state updates remain on the GPU.
+For eligible stateless predicates, `conditional_expect` uses a GPU conditional
+CUDA graph node to skip cuBLAS when every row in the group is inactive. Active
+groups retain the ordinary cuBLAS operation. This requires the conditional
+graph API in the tested PyTorch 2.13/CUDA 13 stack. On older stacks, explicitly
+omit `conditional_expect`; the engine rejects an unsupported requested backend.
+Shared multi-policy expectation currently executes one unconditional GEMM;
+combining the consumer predicates into a shared gate remains future work.
+In batch-invariant mode, conditional execution honors vLLM's invariant matmul
+backend. Kernel choice and batch composition can still affect long latent
+trajectories; the [numerical diagnostics](results/optimization/REPORT.md#correctness-quality-and-a-failure-found-during-testing)
+describe both matching checks and remaining cross-implementation differences.
+
+Set `latent_decode.optimizations` to an explicit list for ablations. An empty
+list selects the original implementation and requires `enable_prompt_embeds=True`.
+For eager debugging, also set `cuda_graphs=False`; `compile=True` optionally
+uses fullgraph `torch.compile` in that backend. Captured staging uses CUDA graphs
+regardless of the legacy `cuda_graphs` setting.
+
+`gated_expect` enables an experimental tensor-core expectation kernel with GPU
+row gating. `fused_expect` enables the experimental streaming softmax/expectation
+backend. Both can change floating-point reduction results; neither is in the
+default profile. `TOPK_EXPECT` is an explicitly different transition algorithm,
+not an exact acceleration of dense feedback. Two `PROJECT` operations can
+express a supplied low-rank mapping, but the engine does not invent or train
+such a mapping.
 
 The surrounding scheduler still performs normal Python bookkeeping and
 CPU-to-GPU metadata staging, and synchronous vLLM still returns sampled IDs to
@@ -197,10 +232,10 @@ requests. Ordinary requests are still supported within the same engine.
 A production API should return a separate emission mask and stop decision,
 distinguish generated positions from visible tokens, reserve graph workspace
 before KV sizing, and expose a validated registry of larger state tensors.
-Tensor parallel execution needs vocabulary-sharded expectation and reduction;
-hidden-only programs could also skip the LM head when no predicate needs logits.
-Conditional execution or grouped compaction could avoid computing soft branches
-for rows that ultimately select text. The present SELECT evaluates both branches.
+Tensor parallel execution needs vocabulary-sharded expectation and reduction.
+The default SELECT still evaluates both branches when its predicate depends on
+model values. Static inactive-phase skipping and the experimental gated kernel
+cover specific cases; arbitrary conditional DAG execution remains future work.
 
 These limits mean the current restricted language does not support literally
 every synchronous framework. It establishes a common transition interface and

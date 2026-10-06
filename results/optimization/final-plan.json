@@ -1,0 +1,23 @@
+[
+  {
+    "label": "stock-start",
+    "overlay": "",
+    "modes": "token",
+    "quality": true
+  },
+  {
+    "label": "baseline",
+    "overlay": "/tmp/latent-baseline",
+    "quality": true
+  },
+  {
+    "label": "optimized",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head",
+    "quality": true
+  },
+  {
+    "label": "stock-end",
+    "overlay": "",
+    "modes": "token"
+  }
+]

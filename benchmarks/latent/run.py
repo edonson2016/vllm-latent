@@ -42,18 +42,21 @@ def main():
     p.add_argument("--eager", action="store_true")
     p.add_argument("--entropy-threshold", type=float, default=2.0)
     p.add_argument("--trace-masks", action="store_true")
+    p.add_argument("--optimizations", default="")
+    p.add_argument("--label", default="baseline")
     args = p.parse_args()
     enabled = args.mode not in {"stock", "disabled", "embed_control"}
     batches = [int(n) for n in args.batches.split(",")]
     extra = {}
     if enabled:
         extra = {
-            "enable_prompt_embeds": True,
+            "enable_prompt_embeds": "fast_input" not in args.optimizations.split(","),
             "additional_config": {
                 "latent_decode": {
                     "max_steps": args.steps,
                     "capacity": max(batches) * 2,
                     "compile": args.compile_transition,
+                    "optimizations": [x for x in args.optimizations.split(",") if x],
                 }
             },
         }

@@ -16,6 +16,7 @@ p = argparse.ArgumentParser()
 p.add_argument("--blocks", type=int)
 p.add_argument("--invariant", action="store_true")
 p.add_argument("--output", type=Path, required=True)
+p.add_argument("--optimizations", default=None)
 a = p.parse_args()
 if a.invariant:
     os.environ["VLLM_BATCH_INVARIANT"] = "1"
@@ -33,7 +34,17 @@ llm = LLM(
     disable_log_stats=False,
     num_gpu_blocks_override=a.blocks,
     gpu_memory_utilization=0.85,
-    additional_config={"latent_decode": {"capacity": 8, "max_steps": 64}},
+    additional_config={
+        "latent_decode": {
+            "capacity": 8,
+            "max_steps": 64,
+            **(
+                {"optimizations": a.optimizations.split(",")}
+                if a.optimizations is not None
+                else {}
+            ),
+        }
+    },
 )
 tokenizer = llm.get_tokenizer()
 prompts, params = [], []

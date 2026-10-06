@@ -1,0 +1,722 @@
+[
+  {
+    "width": 1024,
+    "batch": 1,
+    "active": true,
+    "method": "cublas",
+    "ms": 0.4956735928853353,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 7168
+  },
+  {
+    "width": 1024,
+    "batch": 1,
+    "active": true,
+    "method": "masked",
+    "ms": 0.7645525614420573,
+    "max_abs_error": 0.015625,
+    "relative_l2": 0.003125556977465749,
+    "active_allocation_bytes": 3072
+  },
+  {
+    "width": 1024,
+    "batch": 1,
+    "active": true,
+    "method": "fused",
+    "ms": 0.7183839797973632,
+    "max_abs_error": 0.015625,
+    "relative_l2": 0.003125556977465749,
+    "active_allocation_bytes": 3072
+  },
+  {
+    "width": 1024,
+    "batch": 1,
+    "active": false,
+    "method": "cublas",
+    "ms": 0.4955967903137207,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 3072
+  },
+  {
+    "width": 1024,
+    "batch": 1,
+    "active": false,
+    "method": "masked",
+    "ms": 0.057825068632761635,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 5120
+  },
+  {
+    "width": 1024,
+    "batch": 1,
+    "active": false,
+    "method": "fused",
+    "ms": 0.01630506714185079,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 3072
+  },
+  {
+    "width": 1024,
+    "batch": 8,
+    "active": true,
+    "method": "cublas",
+    "ms": 0.5161312103271485,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 44032
+  },
+  {
+    "width": 1024,
+    "batch": 8,
+    "active": true,
+    "method": "masked",
+    "ms": 1.1328948974609374,
+    "max_abs_error": 0.015625,
+    "relative_l2": 0.0027068243362009525,
+    "active_allocation_bytes": 17408
+  },
+  {
+    "width": 1024,
+    "batch": 8,
+    "active": true,
+    "method": "fused",
+    "ms": 1.2045557657877604,
+    "max_abs_error": 0.015625,
+    "relative_l2": 0.00270683947019279,
+    "active_allocation_bytes": 17408
+  },
+  {
+    "width": 1024,
+    "batch": 8,
+    "active": false,
+    "method": "cublas",
+    "ms": 0.5250986735026042,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 17408
+  },
+  {
+    "width": 1024,
+    "batch": 8,
+    "active": false,
+    "method": "masked",
+    "ms": 0.15303680102030437,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 33792
+  },
+  {
+    "width": 1024,
+    "batch": 8,
+    "active": false,
+    "method": "fused",
+    "ms": 0.1040117343266805,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 17408
+  },
+  {
+    "width": 1024,
+    "batch": 32,
+    "active": true,
+    "method": "cublas",
+    "ms": 0.6241034825642904,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 148480
+  },
+  {
+    "width": 1024,
+    "batch": 32,
+    "active": true,
+    "method": "masked",
+    "ms": 4.498567708333334,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.0003237556084059179,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 1024,
+    "batch": 32,
+    "active": true,
+    "method": "fused",
+    "ms": 4.632584635416666,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.0003237556084059179,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 1024,
+    "batch": 32,
+    "active": false,
+    "method": "cublas",
+    "ms": 0.6260501225789388,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 1024,
+    "batch": 32,
+    "active": false,
+    "method": "masked",
+    "ms": 0.4416373252868652,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 132096
+  },
+  {
+    "width": 1024,
+    "batch": 32,
+    "active": false,
+    "method": "fused",
+    "ms": 0.3446869214375814,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 2048,
+    "batch": 1,
+    "active": true,
+    "method": "cublas",
+    "ms": 0.9310773213704427,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": -183296
+  },
+  {
+    "width": 2048,
+    "batch": 1,
+    "active": true,
+    "method": "masked",
+    "ms": 1.5101236979166666,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002803781069815159,
+    "active_allocation_bytes": 5120
+  },
+  {
+    "width": 2048,
+    "batch": 1,
+    "active": true,
+    "method": "fused",
+    "ms": 1.4722783406575521,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002803781069815159,
+    "active_allocation_bytes": 5120
+  },
+  {
+    "width": 2048,
+    "batch": 1,
+    "active": false,
+    "method": "cublas",
+    "ms": 0.9313173294067383,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 5120
+  },
+  {
+    "width": 2048,
+    "batch": 1,
+    "active": false,
+    "method": "masked",
+    "ms": 0.06339840094248454,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 9216
+  },
+  {
+    "width": 2048,
+    "batch": 1,
+    "active": false,
+    "method": "fused",
+    "ms": 0.023572266101837158,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 5120
+  },
+  {
+    "width": 2048,
+    "batch": 8,
+    "active": true,
+    "method": "cublas",
+    "ms": 0.952683703104655,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 87040
+  },
+  {
+    "width": 2048,
+    "batch": 8,
+    "active": true,
+    "method": "masked",
+    "ms": 2.3664820353190104,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002681496785953641,
+    "active_allocation_bytes": 33792
+  },
+  {
+    "width": 2048,
+    "batch": 8,
+    "active": true,
+    "method": "fused",
+    "ms": 2.463828277587891,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002681496785953641,
+    "active_allocation_bytes": 33792
+  },
+  {
+    "width": 2048,
+    "batch": 8,
+    "active": false,
+    "method": "cublas",
+    "ms": 0.9623797098795573,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 33792
+  },
+  {
+    "width": 2048,
+    "batch": 8,
+    "active": false,
+    "method": "masked",
+    "ms": 0.22527039845784505,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 2048,
+    "batch": 8,
+    "active": false,
+    "method": "fused",
+    "ms": 0.17104640007019042,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 33792
+  },
+  {
+    "width": 2048,
+    "batch": 32,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.0778123219807942,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 295936
+  },
+  {
+    "width": 2048,
+    "batch": 32,
+    "active": true,
+    "method": "masked",
+    "ms": 9.019442749023437,
+    "max_abs_error": 0.0078125,
+    "relative_l2": 0.0027821774128824472,
+    "active_allocation_bytes": 132096
+  },
+  {
+    "width": 2048,
+    "batch": 32,
+    "active": true,
+    "method": "fused",
+    "ms": 9.260564168294271,
+    "max_abs_error": 0.0078125,
+    "relative_l2": 0.0027823622804135084,
+    "active_allocation_bytes": 132096
+  },
+  {
+    "width": 2048,
+    "batch": 32,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.0826644897460938,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 132096
+  },
+  {
+    "width": 2048,
+    "batch": 32,
+    "active": false,
+    "method": "masked",
+    "ms": 0.7477493286132812,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 263168
+  },
+  {
+    "width": 2048,
+    "batch": 32,
+    "active": false,
+    "method": "fused",
+    "ms": 0.6356309254964193,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 132096
+  },
+  {
+    "width": 2560,
+    "batch": 1,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.1599071502685547,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": -376832
+  },
+  {
+    "width": 2560,
+    "batch": 1,
+    "active": true,
+    "method": "masked",
+    "ms": 1.8668596903483072,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002765162382274866,
+    "active_allocation_bytes": 6144
+  },
+  {
+    "width": 2560,
+    "batch": 1,
+    "active": true,
+    "method": "fused",
+    "ms": 1.8217557271321614,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002765162382274866,
+    "active_allocation_bytes": 6144
+  },
+  {
+    "width": 2560,
+    "batch": 1,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.147055943806966,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 6144
+  },
+  {
+    "width": 2560,
+    "batch": 1,
+    "active": false,
+    "method": "masked",
+    "ms": 0.06625813245773315,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 11264
+  },
+  {
+    "width": 2560,
+    "batch": 1,
+    "active": false,
+    "method": "fused",
+    "ms": 0.027011199792226156,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 6144
+  },
+  {
+    "width": 2560,
+    "batch": 8,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.169761021931966,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 108544
+  },
+  {
+    "width": 2560,
+    "batch": 8,
+    "active": true,
+    "method": "masked",
+    "ms": 3.1095914204915363,
+    "max_abs_error": 0.0078125,
+    "relative_l2": 0.002808396238833666,
+    "active_allocation_bytes": 41984
+  },
+  {
+    "width": 2560,
+    "batch": 8,
+    "active": true,
+    "method": "fused",
+    "ms": 3.158380889892578,
+    "max_abs_error": 0.0078125,
+    "relative_l2": 0.0028082565404474735,
+    "active_allocation_bytes": 41984
+  },
+  {
+    "width": 2560,
+    "batch": 8,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.1782175699869792,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 41984
+  },
+  {
+    "width": 2560,
+    "batch": 8,
+    "active": false,
+    "method": "masked",
+    "ms": 0.2612287998199463,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 82944
+  },
+  {
+    "width": 2560,
+    "batch": 8,
+    "active": false,
+    "method": "fused",
+    "ms": 0.20829440752665201,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 41984
+  },
+  {
+    "width": 2560,
+    "batch": 32,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.2847199757893881,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 369664
+  },
+  {
+    "width": 2560,
+    "batch": 32,
+    "active": true,
+    "method": "masked",
+    "ms": 12.450299072265626,
+    "max_abs_error": 0.015625,
+    "relative_l2": 0.0028274869546294212,
+    "active_allocation_bytes": 164864
+  },
+  {
+    "width": 2560,
+    "batch": 32,
+    "active": true,
+    "method": "fused",
+    "ms": 12.978783162434896,
+    "max_abs_error": 0.015625,
+    "relative_l2": 0.002827487187460065,
+    "active_allocation_bytes": 164864
+  },
+  {
+    "width": 2560,
+    "batch": 32,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.2849812825520834,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 164864
+  },
+  {
+    "width": 2560,
+    "batch": 32,
+    "active": false,
+    "method": "masked",
+    "ms": 0.8739871978759766,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 328704
+  },
+  {
+    "width": 2560,
+    "batch": 32,
+    "active": false,
+    "method": "fused",
+    "ms": 0.7786037445068359,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 164864
+  },
+  {
+    "width": 4096,
+    "batch": 1,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.8309664408365884,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": -465920
+  },
+  {
+    "width": 4096,
+    "batch": 1,
+    "active": true,
+    "method": "masked",
+    "ms": 2.986705017089844,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002850719727575779,
+    "active_allocation_bytes": 9216
+  },
+  {
+    "width": 4096,
+    "batch": 1,
+    "active": true,
+    "method": "fused",
+    "ms": 2.932183583577474,
+    "max_abs_error": 0.00390625,
+    "relative_l2": 0.002850719727575779,
+    "active_allocation_bytes": 9216
+  },
+  {
+    "width": 4096,
+    "batch": 1,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.8095595041910808,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 9216
+  },
+  {
+    "width": 4096,
+    "batch": 1,
+    "active": false,
+    "method": "masked",
+    "ms": 0.07907520135243734,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 17408
+  },
+  {
+    "width": 4096,
+    "batch": 1,
+    "active": false,
+    "method": "fused",
+    "ms": 0.039740800857543945,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 9216
+  },
+  {
+    "width": 4096,
+    "batch": 8,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.8300032297770181,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 173056
+  },
+  {
+    "width": 4096,
+    "batch": 8,
+    "active": true,
+    "method": "masked",
+    "ms": 4.764310201009114,
+    "max_abs_error": 0.03125,
+    "relative_l2": 0.0041518607176840305,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 4096,
+    "batch": 8,
+    "active": true,
+    "method": "fused",
+    "ms": 4.945512390136718,
+    "max_abs_error": 0.03125,
+    "relative_l2": 0.0041518607176840305,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 4096,
+    "batch": 8,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.8350048065185547,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 4096,
+    "batch": 8,
+    "active": false,
+    "method": "masked",
+    "ms": 0.37532691955566405,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 132096
+  },
+  {
+    "width": 4096,
+    "batch": 8,
+    "active": false,
+    "method": "fused",
+    "ms": 0.3214442571004232,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 66560
+  },
+  {
+    "width": 4096,
+    "batch": 32,
+    "active": true,
+    "method": "cublas",
+    "ms": 1.9954228719075522,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 590848
+  },
+  {
+    "width": 4096,
+    "batch": 32,
+    "active": true,
+    "method": "masked",
+    "ms": 17.933329264322918,
+    "max_abs_error": 0.0078125,
+    "relative_l2": 0.0006777106318622828,
+    "active_allocation_bytes": 263168
+  },
+  {
+    "width": 4096,
+    "batch": 32,
+    "active": true,
+    "method": "fused",
+    "ms": 18.724251302083335,
+    "max_abs_error": 0.0078125,
+    "relative_l2": 0.0006776992813684046,
+    "active_allocation_bytes": 263168
+  },
+  {
+    "width": 4096,
+    "batch": 32,
+    "active": false,
+    "method": "cublas",
+    "ms": 1.9959723154703777,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 263168
+  },
+  {
+    "width": 4096,
+    "batch": 32,
+    "active": false,
+    "method": "masked",
+    "ms": 1.3350794474283854,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 525312
+  },
+  {
+    "width": 4096,
+    "batch": 32,
+    "active": false,
+    "method": "fused",
+    "ms": 1.2373023986816407,
+    "max_abs_error": 0.0,
+    "relative_l2": 0.0,
+    "active_allocation_bytes": 263168
+  }
+]

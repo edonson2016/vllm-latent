@@ -4,6 +4,7 @@
 
 from types import SimpleNamespace as NS
 
+import pytest
 import torch
 
 from vllm.v1.latent.program import Program, preset
@@ -89,3 +90,72 @@ def test_unused_program_is_evicted_without_lifetime_registry_exhaustion():
         assert len(t.programs) == 1
         assert kind in t.requests
         t.finish([kind])
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+@pytest.mark.parametrize("share", [False, True])
+def test_staged_commit_preserves_request_identity_padding_and_admission(share):
+    from vllm.v1.latent.compiler import optimize
+    from vllm.v1.latent.staging import StagedTransitions
+
+    hidden_program = Program(
+        {
+            "ops": [
+                ["yes", "CONST", True],
+                ["one", "CONST", 1],
+                ["next", "ADD", "s0", "one"],
+            ],
+            "embedding": "hidden",
+            "latent": "yes",
+            "updates": {"s0": "next"},
+        },
+        4,
+        7,
+    )
+    owner = NS(
+        runner=NS(
+            max_num_reqs=3,
+            device="cuda",
+            dtype=torch.bfloat16,
+            input_batch=NS(vocab_size=7),
+        ),
+        history=torch.zeros(4, 8, 4, device="cuda", dtype=torch.bfloat16),
+        masks=torch.zeros(4, 8, device="cuda", dtype=torch.bool),
+        state=torch.zeros(4, 8, device="cuda"),
+        max_steps=8,
+        embedding=torch.randn(7, 4, device="cuda", dtype=torch.bfloat16),
+        definitions={
+            "a": optimize(hidden_program),
+            "b": optimize(Program(preset("token"), 4, 7)),
+        },
+        optimizations={"prune", "share"} if share else {"prune"},
+    )
+    stage = StagedTransitions(owner)
+    for keys in [("a", "b")] if share else [("a",), ("b",)]:
+        stage.capture(keys)
+    stage.shared_keys = ("a", "b") if share else None
+    hidden = torch.arange(12, device="cuda", dtype=torch.bfloat16).reshape(3, 4)
+    ids = torch.tensor([[2], [3], [4]], device="cuda")
+    actual = stage.execute(
+        {"a": [(2, 0, 2), (0, 1, 0)], "b": [(1, 2, 1)]}, None, hidden, ids
+    )
+    assert actual.tolist() == [[0], [3], [0]]
+    torch.testing.assert_close(owner.history[0, 2], hidden[2])
+    torch.testing.assert_close(owner.history[1, 0], hidden[0])
+    torch.testing.assert_close(owner.history[2, 1], owner.embedding[3])
+    assert owner.state[:, 0].tolist() == [1.0, 1.0, 0.0, 0.0]
+    # Admission warmup must not replay the previous batch's state updates.
+    before = owner.state.clone()
+    owner.definitions["c"] = optimize(Program(preset("soft", 2), 4, 7))
+    stage.capture(("a", "b", "c") if share else ("c",))
+    torch.testing.assert_close(owner.state, before)
+    # Replacing shared graphs must leave an older individual GEMM replayable.
+    stage.register("c")
+    for key, steps in [("d", 2), ("e", 3)]:
+        owner.definitions[key] = optimize(Program(preset("entropy", steps), 4, 7))
+        stage.register(key)
+    logits = torch.randn(3, 7, device="cuda")
+    stage.execute({"c": [(0, 3, 0)]}, logits, hidden, ids)
+    expected = logits[:1].softmax(-1).to(owner.embedding.dtype) @ owner.embedding
+    torch.testing.assert_close(owner.history[3, 0], expected[0])
+    torch.testing.assert_close(owner.state, before)
