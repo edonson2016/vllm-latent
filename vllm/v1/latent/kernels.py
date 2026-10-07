@@ -90,6 +90,8 @@ def _commit(
     masks,
     states,
     sampled,
+    recorded,
+    HAS_RECORDED: tl.constexpr,
     D: tl.constexpr,
     STEPS: tl.constexpr,
     BLOCK: tl.constexpr,
@@ -105,14 +107,18 @@ def _commit(
         tl.store(history + index * D + cols, value, cols < D)
         mask = tl.load(latent + row)
         tl.store(masks + index, mask)
-        if mask:
+        if HAS_RECORDED:
+            tl.store(sampled + source, tl.load(recorded + row))
+        elif mask:
             tl.store(sampled + source, 0)
         regs = tl.arange(0, 8)
         values = tl.load(state + row * 8 + regs)
         tl.store(states + slot * 8 + regs, values)
 
 
-def commit(result, latent, state, metadata, history, masks, states, sampled):
+def commit(
+    result, latent, state, metadata, history, masks, states, sampled, recorded=None
+):
     _commit[(result.shape[0],)](
         result,
         latent,
@@ -122,6 +128,8 @@ def commit(result, latent, state, metadata, history, masks, states, sampled):
         masks,
         states,
         sampled,
+        recorded,
+        recorded is not None,
         result.shape[1],
         history.shape[1],
         triton.next_power_of_2(result.shape[1]),
@@ -378,4 +386,34 @@ def conditional_expect(prob, embedding, gate=None):
     else:
         torch.mm(weights, embedding, out=output)
     graph.end_capture_to_conditional_node()
+    return output
+
+
+def compact_expect(prob, embedding, gate, exact=False):
+    """Experimental device compaction with statically captured GEMM buckets.
+
+    Every branch has a fixed shape; active count only selects a CUDA graph
+    conditional node. Changing GEMM shape can change floating-point rounding.
+    """
+    active = gate.reshape(-1)
+    order = active.to(torch.int32).argsort(descending=True, stable=True)
+    weights = prob[order].to(embedding.dtype)
+    output = torch.zeros(
+        (prob.shape[0], embedding.shape[1]), device=prob.device, dtype=embedding.dtype
+    )
+    count = active.sum()
+    previous, size = 0, 1
+    capturing = torch.cuda.is_current_stream_capturing()
+    graph = torch.cuda.CUDAGraph.get_currently_capturing_graph() if capturing else None
+    while previous < prob.shape[0]:
+        size = min(size, prob.shape[0])
+        selected = (count > previous) & (count <= size)
+        if graph is not None:
+            graph.begin_capture_to_if_node(selected)
+        mixture = weights[:size] @ embedding
+        values = torch.where(active[order[:size], None] & selected, mixture, 0)
+        output.index_add_(0, order[:size], values)
+        if graph is not None:
+            graph.end_capture_to_conditional_node()
+        previous, size = size, size + 1 if exact else size * 2
     return output

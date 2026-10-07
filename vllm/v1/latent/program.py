@@ -13,6 +13,14 @@ from typing import Any
 import torch
 
 
+def build_program(spec, width, vocab, constants=None):
+    if isinstance(spec, dict) and spec.get("policy") == "swireasoning":
+        from vllm.v1.latent.swireasoning import SwiProgram
+
+        return SwiProgram(spec, width, vocab, constants)
+    return Program(spec, width, vocab, constants)
+
+
 class Program:
     def __init__(self, spec, width, vocab, constants=None):
         self.constants = constants or {}
@@ -43,7 +51,7 @@ class Program:
             dst, op, *args = inst
             if not isinstance(dst, str) or dst in shapes:
                 raise ValueError("Destinations must be unique register names")
-            if op == "CONST":
+            if op in {"CONST", "PARAM"}:
                 if len(args) != 1 or type(args[0]) not in (int, float, bool):
                     raise ValueError("CONST requires one finite scalar")
                 if not math.isfinite(args[0]):
@@ -51,6 +59,10 @@ class Program:
                 out = 1
                 if isinstance(args[0], bool):
                     booleans.add(dst)
+                if op == "PARAM" and (
+                    type(args[0]) is not int or not 0 <= args[0] < 16
+                ):
+                    raise ValueError("PARAM requires an index in [0, 16)")
             else:
                 refs = args[:-1] if op in {"PROJECT", "TOPK_EXPECT"} else args
                 if any(not isinstance(a, str) or a not in shapes for a in refs):
@@ -122,7 +134,19 @@ class Program:
         ):
             raise ValueError("State updates must target s0..s7 with row scalars")
 
-    def __call__(self, logits, hidden, token, step, state, embedding, cache=None):
+    def __call__(
+        self,
+        logits,
+        hidden,
+        token,
+        step,
+        state,
+        embedding,
+        cache=None,
+        parameters=None,
+        predicate_only=False,
+        valid=None,
+    ):
         if cache is None and getattr(self, "fused_expect", False):
             cache = {}
         r = {"logits": logits, "hidden": hidden, "token": token, "step": step}
@@ -133,7 +157,7 @@ class Program:
             key: tuple[Any, ...] = (
                 op,
                 tuple((type(a).__name__, a) for a in args)
-                if op == "CONST"
+                if op in {"CONST", "PARAM"}
                 else tuple(expressions[a] for a in refs),
                 args[-1] if op in {"PROJECT", "TOPK_EXPECT"} else None,
             )
@@ -146,7 +170,14 @@ class Program:
             if cache is not None and key in cache:
                 r[dst] = cache[key]
                 continue
-            if op == "CONST":
+            if op in {"CONST", "PARAM"}:
+                if op == "PARAM":
+                    if parameters is None:
+                        raise ValueError("PARAM requires admission parameters")
+                    r[dst] = parameters[:, args[0] : args[0] + 1]
+                    if cache is not None:
+                        cache[key] = r[dst]
+                    continue
                 r[dst] = torch.full_like(
                     step,
                     args[0],
@@ -179,7 +210,30 @@ class Program:
                 if self.conditional_expect:
                     from vllm.v1.latent.kernels import conditional_expect
 
-                    y = conditional_expect(x, embedding, r.get(self.latent))
+                    consumer_gate = (
+                        cache.get(("GATE", key)) if cache is not None else None
+                    )
+                    gate = (
+                        consumer_gate
+                        if consumer_gate is not None
+                        else r.get(self.latent)
+                    )
+                    if consumer_gate is None and valid is not None:
+                        gate = valid if gate is None else gate & valid
+                    if (
+                        getattr(self, "compact_expect", False)
+                        or getattr(self, "exact_compact", False)
+                    ) and gate is not None:
+                        from vllm.v1.latent.kernels import compact_expect
+
+                        y = compact_expect(
+                            x,
+                            embedding,
+                            gate,
+                            exact=getattr(self, "exact_compact", False),
+                        )
+                    else:
+                        y = conditional_expect(x, embedding, gate)
                 elif getattr(self, "gated_expect", False):
                     from vllm.v1.latent.kernels import gated_expect
 
@@ -237,6 +291,8 @@ class Program:
             r[dst] = y
             if cache is not None:
                 cache[key] = y
+        if predicate_only:
+            return r[self.latent]
         next_state = torch.cat(
             [r[self.updates.get(f"s{i}", f"s{i}")].float() for i in range(8)], dim=1
         )
@@ -250,6 +306,32 @@ class Program:
         result = torch.where(latent, result, token)
         next_state = torch.where(torch.isfinite(next_state), next_state, state)
         return result, latent, next_state
+
+    def execute(
+        self,
+        logits,
+        hidden,
+        token,
+        step,
+        state,
+        embedding,
+        sampled,
+        cache=None,
+        parameters=None,
+        valid=None,
+    ):
+        result, latent, updated = self(
+            logits,
+            hidden,
+            token,
+            step,
+            state,
+            embedding,
+            cache=cache,
+            parameters=parameters,
+            valid=valid,
+        )
+        return result, latent, updated, torch.where(latent, 0, sampled)
 
 
 def preset(kind="soft", latent_steps=32, threshold=2.0):

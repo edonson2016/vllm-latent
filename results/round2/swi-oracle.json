@@ -1,0 +1,8 @@
+{
+  "transitions": 10240,
+  "active": 3402,
+  "forced": 1620,
+  "cutoffs": 461,
+  "switches": 1108,
+  "assertions_passed": true
+}

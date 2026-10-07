@@ -1,0 +1,50 @@
+ruff check..........................................................................................Failed
+- hook id: ruff-check
+- exit code: 1
+
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/summarize_round2.py,line=57,col=89,endLine=57,endColumn=125::benchmarks/latent/summarize_round2.py:57:89: E501 Line too long (124 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/summarize_round2.py,line=143,col=89,endLine=143,endColumn=139::benchmarks/latent/summarize_round2.py:143:89: E501 Line too long (138 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/summarize_round2.py,line=164,col=89,endLine=164,endColumn=98::benchmarks/latent/summarize_round2.py:164:89: E501 Line too long (97 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/summarize_round2.py,line=222,col=89,endLine=222,endColumn=247::benchmarks/latent/summarize_round2.py:222:89: E501 Line too long (246 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/summarize_round2.py,line=289,col=89,endLine=289,endColumn=156::benchmarks/latent/summarize_round2.py:289:89: E501 Line too long (155 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/summarize_round2.py,line=304,col=89,endLine=304,endColumn=92::benchmarks/latent/summarize_round2.py:304:89: E501 Line too long (91 > 88)
+
+ruff format.........................................................................................Passed
+typos...............................................................................................Passed
+clang-format....................................................................(no files to check)Skipped
+markdownlint-cli2...................................................................................Passed
+Lint GitHub Actions workflow files..............................................(no files to check)Skipped
+shellcheck......................................................................(no files to check)Skipped
+pip-compile.....................................................................(no files to check)Skipped
+pip-compile-rocm................................................................(no files to check)Skipped
+pip-compile-xpu.................................................................(no files to check)Skipped
+pip-compile-cpu.................................................................(no files to check)Skipped
+pip-compile-docs................................................................(no files to check)Skipped
+check json......................................................................(no files to check)Skipped
+reformat test/nightly-torch.txt to be in sync with test/cuda.in.................(no files to check)Skipped
+Check auto-label rules still match real files...................................(no files to check)Skipped
+Check every Buildkite step declares an explicit key.............................(no files to check)Skipped
+Check new tests are wired into Buildkite CI.........................................................Passed
+- hook id: check-test-tethering
+- duration: 2.43s
+Run mypy for Python 3.10............................................................................Passed
+Lint PNG exports from excalidraw................................................(no files to check)Skipped
+Check SPDX headers..................................................................................Passed
+Check root lazy imports.............................................................................Passed
+Check for spaces in all filenames...................................................................Passed
+Update Dockerfile dependency graph..................................................................Passed
+Test non-root entrypoint wrapper................................................(no files to check)Skipped
+Check for forbidden imports.........................................................................Passed
+Prevent new 'torch.cuda' APIs call..................................................................Passed
+Validate configuration has default values and that each field has a docstring.......................Passed
+Validate docker/versions.json matches Dockerfile................................(no files to check)Skipped
+Check for boolean ops in with-statements............................................................Passed
+Rust - Normalize Cargo manifests with autoinherit...............................(no files to check)Skipped
+Rust - Sort Cargo manifest sections.............................................(no files to check)Skipped
+Rust - Format code..............................................................(no files to check)Skipped
+Suggestion..........................................................................................Passed
+- hook id: suggestion
+- duration: 0.01s
+
+To bypass all the pre-commit hooks, add --no-verify to git commit. To skip a specific hook, prefix the commit command with SKIP=<hook-id>.
+

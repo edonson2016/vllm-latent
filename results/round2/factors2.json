@@ -1,0 +1,13 @@
+{
+  "model": {
+    "model": "Qwen/Qwen3-4B",
+    "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+    "width": 2560,
+    "vocab": 151936,
+    "layers": 36
+  },
+  "rank": 128,
+  "seed": 20261006,
+  "reconstruction_relative_l2": 0.9073825478553772,
+  "seconds": 0.25755468010902405
+}

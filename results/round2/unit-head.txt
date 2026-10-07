@@ -1,0 +1,121 @@
+...........................F..                                           [100%]
+=================================== FAILURES ===================================
+_____ test_unused_program_is_evicted_without_lifetime_registry_exhaustion ______
+
+    def test_unused_program_is_evicted_without_lifetime_registry_exhaustion():
+        from vllm import SamplingParams
+    
+        t = make_runner()
+        t.finish(["a", "b"])
+        t.max_programs = 1
+        t.constants = {}
+        t.use_graphs = False
+        t.compile = False
+        t.runner.input_batch.vocab_size = 3
+        for kind in ["token", "hidden", "soft"]:
+            request = NS(
+                req_id=kind,
+                prompt_token_ids=[0, 1],
+                prompt_embeds=None,
+                sampling_params=SamplingParams(
+                    max_tokens=4,
+                    ignore_eos=True,
+                    detokenize=False,
+                    extra_args={"decode_program": preset(kind, 4)},
+                ),
+            )
+>           t.admit(request)
+
+/home/edonson/vllm-latent/tests/v1/latent/test_replay.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <vllm.v1.latent.runner.TransitionRunner object at 0x7fa0e303a6f0>
+request = namespace(req_id='token', prompt_token_ids=[0, 1], prompt_embeds=None, sampling_params=SamplingParams(n=1, presence_pe...=None, extra_args={'decode_program': {'ops': [['active', 'CONST', False]], 'embedding': 'token', 'latent': 'active'}}))
+
+    def admit(self, request):
+        params = request.sampling_params
+        spec = (params.extra_args or {}).get("decode_program") if params else None
+        if spec is None:
+            return
+        from vllm.v1.latent.validation import validate_params
+    
+        validate_params(params, self.max_steps, request.prompt_embeds)
+        original_spec = spec
+        values = []
+        if "parameterize" in getattr(self, "optimizations", set()):
+            from vllm.v1.latent.parameters import parameterize
+    
+            spec, values = parameterize(spec)
+        key = json.dumps(spec, sort_keys=True, allow_nan=False)
+        if len(key) > 16384:
+            raise ValueError("Decode program exceeds 16 KiB admission limit")
+        if key not in self.programs:
+            if len(self.programs) >= self.max_programs:
+                active = {entry[1] for entry in self.requests.values()}
+                unused = next((k for k in self.programs if k not in active), None)
+                if unused is None:
+                    raise ValueError("Worker's active program registry is full")
+                del self.programs[unused]
+                if unused in getattr(self, "definitions", {}):
+                    del self.definitions[unused]
+                    self.inactive_steps.pop(unused, None)
+                    self.headless_steps.pop(unused, None)
+                if getattr(self, "staged", None) is not None:
+                    assert self.staged is not None
+                    self.staged.graphs = {
+                        keys: value
+                        for keys, value in self.staged.graphs.items()
+                        if unused not in keys
+                    }
+                    self.staged.head_graphs = {
+                        keys: value
+                        for keys, value in self.staged.head_graphs.items()
+                        if unused not in keys
+                    }
+            program = build_program(
+                spec,
+                self.history.shape[-1],
+                self.runner.input_batch.vocab_size,
+                self.constants,
+            )
+            if (
+                getattr(program, "builtin", False)
+                and "staging" not in self.optimizations
+            ):
+                raise ValueError("SwiReasoning requires captured staging")
+            if "prune" in getattr(self, "optimizations", set()):
+                from vllm.v1.latent.compiler import optimize
+    
+                program = optimize(program)
+            program.fused_expect = "fused_expect" in getattr(
+                self, "optimizations", set()
+            )
+            if program.fused_expect:
+                from vllm.v1.latent.compiler import fuse_expectations
+    
+                program = fuse_expectations(program)
+            if "gated_expect" in getattr(self, "optimizations", set()):
+                from vllm.v1.latent.compiler import optimize
+    
+                program = optimize(program)
+                program.gated_expect = True
+            if "conditional_expect" in getattr(self, "optimizations", set()):
+                from vllm.v1.latent.compiler import needs_device_gate, optimize
+    
+                program = optimize(program)
+                program.conditional_expect = needs_device_gate(program)
+            program.union_gate = "union_gate" in getattr(self, "optimizations", set())
+>           program.compact_expect = "compact_expect" in self.optimizations
+                                                         ^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'TransitionRunner' object has no attribute 'optimizations'
+
+round2-overlay/vllm/v1/latent/runner.py:319: AttributeError
+=============================== warnings summary ===============================
+tests/v1/latent/test_program.py: 14 warnings
+  /usr/local/lib/python3.12/dist-packages/torch/jit/_script.py:365: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../home/edonson/vllm-latent/tests/v1/latent/test_replay.py::test_unused_program_is_evicted_without_lifetime_registry_exhaustion
+1 failed, 29 passed, 14 warnings in 19.89s

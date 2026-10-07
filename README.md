@@ -1,13 +1,22 @@
 <!-- markdownlint-disable MD001 MD041 -->
 
-> **Research fork: programmable latent decoding.** This branch adds bounded,
-> GPU-resident decode-transition programs to vLLM 0.31.0. Start with the
-> [implementation guide](LATENT_DECODE.md), the [8B benchmark report](results/latent/REPORT.md),
-> and the [model-size and existing-fork comparison](results/scaling/REPORT.md).
-> The [optimization report](results/optimization/REPORT.md) measures the optimized
-> runtime and individual changes across 0.6B–8B models.
-> This is an experimental single-GPU implementation; supported features and
-> limitations are documented in the guide.
+> **Research fork: programmable latent decoding for vLLM 0.31.0.**
+>
+> **[Latest benchmark report and usable components](results/round2/REPORT.md)** ·
+> [All result tables](results/round2/TABLES.md) ·
+> [Implementation guide and examples](LATENT_DECODE.md)
+>
+> Implemented: GPU transition programs, next-step embedding feedback, a complete
+> SwiReasoning controller, replayable request state, and reusable program graphs.
+> On RTX A6000 at batch 32, frequent-switching latency is 13–22% lower than the
+> measured QwenReasoning fork across 0.6B–8B; token-only latency is within 0.4%
+> of stock vLLM. These are fixed-work timings, not demonstrated accuracy gains.
+> Numerical fidelity and supported-model limits are detailed in the report.
+>
+> Earlier reports: [8B prototype](results/latent/REPORT.md),
+> [model scaling and existing forks](results/scaling/REPORT.md),
+> [first optimization round](results/optimization/REPORT.md).
+> This is experimental synchronous, single-GPU research software.
 
 <p align="center">
   <picture>

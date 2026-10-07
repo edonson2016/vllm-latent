@@ -108,6 +108,9 @@ class Scheduler(SchedulerInterface):
             else 0
         )
         self._latent_programs: dict[str, str] = {}
+        self._latent_parameterize = bool(
+            latent_config and "parameterize" in latent_config.get("optimizations", [])
+        )
         self.cache_config = vllm_config.cache_config
         self.lora_config = vllm_config.lora_config
         self.model_uses_mrope = vllm_config.model_config.uses_mrope
@@ -930,8 +933,13 @@ class Scheduler(SchedulerInterface):
                 if is_latent:
                     params = request.sampling_params
                     assert params is not None and params.extra_args is not None
+                    program_spec = params.extra_args["decode_program"]
+                    if self._latent_parameterize:
+                        from vllm.v1.latent.parameters import parameterize
+
+                        program_spec, _ = parameterize(program_spec)
                     program_key = json.dumps(
-                        params.extra_args["decode_program"],
+                        program_spec,
                         sort_keys=True,
                     )
                     active_programs = set(self._latent_programs.values())

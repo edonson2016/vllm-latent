@@ -1,0 +1,3 @@
+name, uuid, driver_version, memory.total [MiB], power.limit [W]
+NVIDIA RTX A6000, GPU-36c79296-2884-b91a-052b-c6d58be0ab06, 565.57.01, 49140 MiB, 300.00 W
+Linux edonson-latent-round2-main-mfv2z 4.18.0-553.126.1.el8_10.x86_64 #1 SMP Fri May 29 15:43:47 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux

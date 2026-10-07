@@ -1,0 +1,997 @@
+{
+  "coverage": {
+    "control-model0.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "control-model1.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "control-model2.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "control-model3.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "final-generic0.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "final-generic1.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "final-generic2.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "final-generic3.jsonl": {
+      "expected": 15,
+      "actual": 15
+    },
+    "paired-model0.jsonl": {
+      "expected": 30,
+      "actual": 30
+    },
+    "paired-model1.jsonl": {
+      "expected": 30,
+      "actual": 30
+    },
+    "paired-model2.jsonl": {
+      "expected": 30,
+      "actual": 30
+    },
+    "paired-model3.jsonl": {
+      "expected": 30,
+      "actual": 30
+    },
+    "approx-timing0.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-timing1.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-timing2.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-timing3.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-gated0.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-gated1.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-gated2.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "approx-gated3.jsonl": {
+      "expected": 10,
+      "actual": 10
+    },
+    "fork-quality0.jsonl": {
+      "expected": 7,
+      "actual": 7
+    },
+    "fork-quality1.jsonl": {
+      "expected": 7,
+      "actual": 7
+    },
+    "fork-quality2.jsonl": {
+      "expected": 7,
+      "actual": 7
+    },
+    "fork-quality3.jsonl": {
+      "expected": 7,
+      "actual": 7
+    },
+    "qwen-sampled0.jsonl": {
+      "expected": 3,
+      "actual": 3
+    },
+    "qwen-sampled1.jsonl": {
+      "expected": 3,
+      "actual": 3
+    },
+    "qwen-sampled2.jsonl": {
+      "expected": 3,
+      "actual": 3
+    },
+    "qwen-sampled3.jsonl": {
+      "expected": 3,
+      "actual": 3
+    },
+    "exact-quality1.jsonl": {
+      "expected": 2,
+      "actual": 2
+    },
+    "exact-quality2.jsonl": {
+      "expected": 2,
+      "actual": 2
+    },
+    "exact-quality3.jsonl": {
+      "expected": 2,
+      "actual": 2
+    },
+    "exact-compact-valid-quality.jsonl": {
+      "expected": 2,
+      "actual": 2
+    },
+    "gated-quality0.jsonl": {
+      "expected": 3,
+      "actual": 3
+    }
+  },
+  "input_paths": {
+    "exact": 23,
+    "total": 32
+  },
+  "input_paths-eager": {
+    "exact": 32,
+    "total": 32
+  },
+  "input_paths_fixed_norm": {
+    "exact": 32,
+    "total": 32
+  },
+  "preemption": {
+    "exact": 12,
+    "total": 12,
+    "ample_cache_preemptions": 0,
+    "constrained_preemptions": 4
+  },
+  "controller_oracle": {
+    "transitions": 16384,
+    "active": 5601,
+    "forced": 3063,
+    "cutoffs": 301,
+    "switches": 1757,
+    "assertions_passed": true
+  },
+  "quality_trace_comparisons": [
+    {
+      "file": "fork-quality0.jsonl",
+      "mode": "token",
+      "exact": 128,
+      "total": 128
+    },
+    {
+      "file": "fork-quality0.jsonl",
+      "mode": "swi512",
+      "exact": 22,
+      "total": 128
+    },
+    {
+      "file": "fork-quality0.jsonl",
+      "mode": "dense32",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "exact-compact-valid-quality.jsonl",
+      "mode": "swi512",
+      "exact": 127,
+      "total": 128
+    },
+    {
+      "file": "exact-compact-valid-quality.jsonl",
+      "mode": "dense32",
+      "exact": 123,
+      "total": 128
+    },
+    {
+      "file": "fork-quality1.jsonl",
+      "mode": "token",
+      "exact": 127,
+      "total": 128
+    },
+    {
+      "file": "fork-quality1.jsonl",
+      "mode": "swi512",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "fork-quality1.jsonl",
+      "mode": "dense32",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "exact-quality1.jsonl",
+      "mode": "swi512",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "exact-quality1.jsonl",
+      "mode": "dense32",
+      "exact": 128,
+      "total": 128
+    },
+    {
+      "file": "fork-quality2.jsonl",
+      "mode": "token",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "fork-quality2.jsonl",
+      "mode": "swi512",
+      "exact": 1,
+      "total": 128
+    },
+    {
+      "file": "fork-quality2.jsonl",
+      "mode": "dense32",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "exact-quality2.jsonl",
+      "mode": "swi512",
+      "exact": 3,
+      "total": 128
+    },
+    {
+      "file": "exact-quality2.jsonl",
+      "mode": "dense32",
+      "exact": 1,
+      "total": 128
+    },
+    {
+      "file": "fork-quality3.jsonl",
+      "mode": "token",
+      "exact": 1,
+      "total": 128
+    },
+    {
+      "file": "fork-quality3.jsonl",
+      "mode": "swi512",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "fork-quality3.jsonl",
+      "mode": "dense32",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "exact-quality3.jsonl",
+      "mode": "swi512",
+      "exact": 0,
+      "total": 128
+    },
+    {
+      "file": "exact-quality3.jsonl",
+      "mode": "dense32",
+      "exact": 0,
+      "total": 128
+    }
+  ],
+  "greedy_repeat_variability": [
+    {
+      "file": "qwen-model1.jsonl.gz",
+      "engine": "qwen",
+      "label": "qwen",
+      "mode": "swi8",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "qwen-model1.jsonl.gz",
+      "engine": "qwen",
+      "label": "qwen",
+      "mode": "swi8",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "stock-before",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "soft",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "soft",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "entropy",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "mixed",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model1.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model0.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-final",
+      "mode": "swi512",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "paired-model0.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-exact",
+      "mode": "swi512",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model0.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-exact",
+      "mode": "swi8",
+      "batch": 32,
+      "distinct_hashes": 5
+    },
+    {
+      "file": "paired-model0.jsonl.gz",
+      "engine": "stock",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "swi-ablation3.jsonl.gz",
+      "engine": "fork",
+      "label": "tail",
+      "mode": "swi8",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "swi-ablation3.jsonl.gz",
+      "engine": "fork",
+      "label": "combo",
+      "mode": "swi512",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-gated0.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "dense32",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-gated0.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "bf16",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-gated0.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "topk",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-gated0.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "adaptive",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model3.jsonl.gz",
+      "engine": "qwen",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model3.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model3.jsonl.gz",
+      "engine": "stock",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model3.jsonl.gz",
+      "engine": "stock",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "1cat-0.6B.jsonl.gz",
+      "engine": "swir",
+      "label": null,
+      "mode": "disabled",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "1cat-0.6B.jsonl.gz",
+      "engine": "swir",
+      "label": null,
+      "mode": "swir",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model1.jsonl.gz",
+      "engine": "qwen",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model1.jsonl.gz",
+      "engine": "qwen",
+      "label": "paired-final",
+      "mode": "swi8",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model1.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-final",
+      "mode": "swi8",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model1.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-exact",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic2.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic2.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "soft",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic2.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "soft",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic2.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "entropy",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "1cat-8B.jsonl.gz",
+      "engine": "swir",
+      "label": null,
+      "mode": "disabled",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-gated2.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "topk",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-timing1.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "dense32",
+      "batch": 32,
+      "distinct_hashes": 4
+    },
+    {
+      "file": "approx-timing1.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "bf16",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-timing1.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "topk",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-timing1.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "adaptive",
+      "batch": 32,
+      "distinct_hashes": 5
+    },
+    {
+      "file": "approx-timing1.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "lowrank",
+      "batch": 32,
+      "distinct_hashes": 5
+    },
+    {
+      "file": "control-model0.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "entropy",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "control-model0.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "mixed",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-timing0.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "dense32",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-timing0.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "bf16",
+      "batch": 32,
+      "distinct_hashes": 5
+    },
+    {
+      "file": "approx-timing0.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "topk",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-timing0.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "adaptive",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-timing0.jsonl.gz",
+      "engine": "fork",
+      "label": "candidate",
+      "mode": "lowrank",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "swi-ablation0.jsonl.gz",
+      "engine": "fork",
+      "label": "combo",
+      "mode": "swi8",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "qwen-model2.jsonl.gz",
+      "engine": "qwen",
+      "label": "qwen",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "qwen-model2.jsonl.gz",
+      "engine": "qwen",
+      "label": "qwen",
+      "mode": "swi512",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic3.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic3.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "mixed",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model3.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "soft",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model3.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "soft",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model3.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "mixed",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "control-model3.jsonl.gz",
+      "engine": null,
+      "label": "baseline",
+      "mode": "mixed",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-gated3.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "adaptive",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "approx-gated1.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "dense32",
+      "batch": 32,
+      "distinct_hashes": 4
+    },
+    {
+      "file": "approx-gated1.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "bf16",
+      "batch": 32,
+      "distinct_hashes": 5
+    },
+    {
+      "file": "approx-gated1.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "topk",
+      "batch": 32,
+      "distinct_hashes": 6
+    },
+    {
+      "file": "approx-gated1.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "adaptive",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "approx-gated1.jsonl.gz",
+      "engine": "fork",
+      "label": "gated-approximations",
+      "mode": "lowrank",
+      "batch": 32,
+      "distinct_hashes": 3
+    },
+    {
+      "file": "control-model2.jsonl.gz",
+      "engine": null,
+      "label": "stock-before",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "core",
+      "mode": "soft",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "core",
+      "mode": "mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "core",
+      "mode": "gated_mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "union",
+      "mode": "gated_mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "union",
+      "mode": "sparse",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "async",
+      "mode": "soft",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "tail",
+      "mode": "gated_mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "parameter",
+      "mode": "mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "parameter",
+      "mode": "sparse",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "combo",
+      "mode": "token",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "ablation-model0.jsonl.gz",
+      "engine": null,
+      "label": "compact",
+      "mode": "gated_mixed",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic0.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "soft",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic1.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "token",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic1.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "entropy",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "final-generic1.jsonl.gz",
+      "engine": null,
+      "label": "optimized",
+      "mode": "mixed",
+      "batch": 32,
+      "distinct_hashes": 5
+    },
+    {
+      "file": "paired-model2.jsonl.gz",
+      "engine": "qwen",
+      "label": "paired-final",
+      "mode": "swi512",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model2.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-final",
+      "mode": "swi512",
+      "batch": 32,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model2.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-exact",
+      "mode": "swi512",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model2.jsonl.gz",
+      "engine": "fork",
+      "label": "paired-exact",
+      "mode": "swi8",
+      "batch": 8,
+      "distinct_hashes": 2
+    },
+    {
+      "file": "paired-model2.jsonl.gz",
+      "engine": "stock",
+      "label": "paired-final",
+      "mode": "token",
+      "batch": 8,
+      "distinct_hashes": 2
+    }
+  ],
+  "adaptive_strict": {
+    "exact": 128,
+    "total": 128
+  },
+  "exact_nohead": [
+    {
+      "mode": "swi512",
+      "batch": 1,
+      "exact": 1,
+      "total": 1
+    },
+    {
+      "mode": "swi512",
+      "batch": 8,
+      "exact": 8,
+      "total": 8
+    },
+    {
+      "mode": "swi512",
+      "batch": 32,
+      "exact": 32,
+      "total": 32
+    },
+    {
+      "mode": "swi8",
+      "batch": 1,
+      "exact": 1,
+      "total": 1
+    },
+    {
+      "mode": "swi8",
+      "batch": 8,
+      "exact": 8,
+      "total": 8
+    },
+    {
+      "mode": "swi8",
+      "batch": 32,
+      "exact": 32,
+      "total": 32
+    }
+  ],
+  "unit_results": "37 passed, 14 warnings in 17.70s",
+  "approximation_arithmetic": {
+    "cases": 400,
+    "exact": 400
+  }
+}

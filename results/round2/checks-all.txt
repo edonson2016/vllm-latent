@@ -1,0 +1,40 @@
+ruff check..........................................................................................Passed
+ruff format.........................................................................................Passed
+typos...............................................................................................Passed
+clang-format........................................................................................Passed
+markdownlint-cli2...................................................................................Passed
+Lint GitHub Actions workflow files..................................................................Passed
+shellcheck..........................................................................................Passed
+pip-compile.........................................................................................Passed
+pip-compile-rocm....................................................................................Passed
+pip-compile-xpu.....................................................................................Passed
+pip-compile-cpu.....................................................................................Passed
+pip-compile-docs....................................................................................Passed
+check json..........................................................................................Passed
+reformat test/nightly-torch.txt to be in sync with test/cuda.in.....................................Passed
+Check auto-label rules still match real files.......................................................Passed
+Check every Buildkite step declares an explicit key.................................................Passed
+Check new tests are wired into Buildkite CI.........................................................Passed
+- hook id: check-test-tethering
+- duration: 3.93s
+Run mypy for Python 3.10............................................................................Passed
+Lint PNG exports from excalidraw....................................................................Passed
+Check SPDX headers..................................................................................Passed
+Check root lazy imports.............................................................................Passed
+Check for spaces in all filenames...................................................................Passed
+Update Dockerfile dependency graph..................................................................Passed
+Test non-root entrypoint wrapper....................................................................Passed
+Check for forbidden imports.........................................................................Passed
+Prevent new 'torch.cuda' APIs call..................................................................Passed
+Validate configuration has default values and that each field has a docstring.......................Passed
+Validate docker/versions.json matches Dockerfile....................................................Passed
+Check for boolean ops in with-statements............................................................Passed
+Rust - Normalize Cargo manifests with autoinherit...................................................Passed
+Rust - Sort Cargo manifest sections.................................................................Passed
+Rust - Format code..................................................................................Passed
+Suggestion..........................................................................................Passed
+- hook id: suggestion
+- duration: 0.01s
+
+To bypass all the pre-commit hooks, add --no-verify to git commit. To skip a specific hook, prefix the commit command with SKIP=<hook-id>.
+

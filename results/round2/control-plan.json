@@ -1,0 +1,13 @@
+[
+  {
+    "label": "stock-before",
+    "overlay": "",
+    "modes": "token"
+  },
+  {
+    "label": "baseline",
+    "overlay": "/tmp/baseline-overlay",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect",
+    "modes": "token,soft,entropy,mixed"
+  }
+]

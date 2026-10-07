@@ -13,6 +13,7 @@ from vllm.v1.latent.runner import TransitionRunner
 
 def make_runner():
     t = TransitionRunner.__new__(TransitionRunner)
+    t.optimizations = set()
     t.history = torch.zeros(3, 8, 2)
     t.state = torch.zeros(3, 8)
     t.masks = torch.zeros(3, 8, dtype=torch.bool)
@@ -94,7 +95,10 @@ def test_unused_program_is_evicted_without_lifetime_registry_exhaustion():
 
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
 @pytest.mark.parametrize("share", [False, True])
-def test_staged_commit_preserves_request_identity_padding_and_admission(share):
+@pytest.mark.parametrize("asynchronous", [False, True])
+def test_staged_commit_preserves_request_identity_padding_and_admission(
+    share, asynchronous
+):
     from vllm.v1.latent.compiler import optimize
     from vllm.v1.latent.staging import StagedTransitions
 
@@ -130,6 +134,8 @@ def test_staged_commit_preserves_request_identity_padding_and_admission(share):
         },
         optimizations={"prune", "share"} if share else {"prune"},
     )
+    if asynchronous:
+        owner.optimizations.add("async_metadata")
     stage = StagedTransitions(owner)
     for keys in [("a", "b")] if share else [("a",), ("b",)]:
         stage.capture(keys)

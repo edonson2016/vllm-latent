@@ -4484,9 +4484,9 @@ class GPUModelRunner(
                     )
 
                 sample_hidden_states = hidden_states[logits_indices]
-                skip_latent_head = (
-                    self.latent_runner is not None
-                    and self.latent_runner.can_skip_head(scheduler_output)
+                skip_latent_head = self.latent_runner is not None and (
+                    self.latent_runner.can_capture_head(scheduler_output)
+                    or self.latent_runner.can_skip_head(scheduler_output)
                 )
                 logits = (
                     None
@@ -4595,15 +4595,28 @@ class GPUModelRunner(
                 scheduler_output, grammar_output, self.input_batch, logits
             )
 
+        fuse_latent_sample = (
+            logits is not None
+            and self.latent_runner is not None
+            and self.latent_runner.can_fuse_sample(scheduler_output)
+        )
+        if (
+            self.latent_runner is not None
+            and self.latent_runner.staged is not None
+            and {"tail_sample", "capture_head"} & self.latent_runner.optimizations
+        ):
+            self.latent_runner.staged.fuse_sample.fill_(fuse_latent_sample)
         transition_logits = (
-            logits.clone()
+            (logits if fuse_latent_sample else logits.clone())
             if logits is not None
             and self.latent_runner is not None
             and self.latent_runner.needs_logits(scheduler_output)
             else None
         )
         with record_function_or_nullcontext("gpu_model_runner: sample"):
-            if logits is None and self.latent_runner is not None:
+            if (
+                logits is None or fuse_latent_sample
+            ) and self.latent_runner is not None:
                 sampler_output = SamplerOutput(
                     sampled_token_ids=torch.zeros(
                         (sample_hidden_states.shape[0], 1),

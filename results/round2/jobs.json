@@ -1,0 +1,87 @@
+{
+  "edonson-latent-round2-main": {
+    "created": "2026-10-06T21:17:34Z",
+    "containers": [
+      {
+        "image": "vllm/vllm-openai@sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+        "resources": {
+          "limits": {
+            "nvidia.com/gpu": "1"
+          },
+          "requests": {
+            "cpu": "8",
+            "memory": "64Gi"
+          }
+        }
+      }
+    ]
+  },
+  "edonson-latent-round2-dev": {
+    "created": "2026-10-06T21:25:29Z",
+    "containers": [
+      {
+        "image": "vllm/vllm-openai@sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+        "resources": {
+          "limits": {
+            "nvidia.com/gpu": "1"
+          },
+          "requests": {
+            "cpu": "8",
+            "memory": "64Gi"
+          }
+        }
+      }
+    ]
+  },
+  "edonson-latent-round2-tail": {
+    "created": "2026-10-06T21:39:14Z",
+    "containers": [
+      {
+        "image": "vllm/vllm-openai@sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+        "resources": {
+          "limits": {
+            "nvidia.com/gpu": "1"
+          },
+          "requests": {
+            "cpu": "8",
+            "memory": "64Gi"
+          }
+        }
+      }
+    ]
+  },
+  "edonson-latent-round2-qwen": {
+    "created": "2026-10-06T21:20:00Z",
+    "containers": [
+      {
+        "image": "vllm/vllm-openai@sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+        "resources": {
+          "limits": {
+            "nvidia.com/gpu": "1"
+          },
+          "requests": {
+            "cpu": "8",
+            "memory": "64Gi"
+          }
+        }
+      }
+    ]
+  },
+  "edonson-latent-round2-audit": {
+    "created": "2026-10-06T22:14:10Z",
+    "containers": [
+      {
+        "image": "vllm/vllm-openai@sha256:c1c9f6fd5c109ba7f0546a59f5b2f15fb87f64c77782e90a27b648b42a8e67c3",
+        "resources": {
+          "limits": {
+            "nvidia.com/gpu": "1"
+          },
+          "requests": {
+            "cpu": "8",
+            "memory": "64Gi"
+          }
+        }
+      }
+    ]
+  }
+}

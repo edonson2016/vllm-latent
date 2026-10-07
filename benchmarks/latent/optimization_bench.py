@@ -27,6 +27,8 @@ class BenchmarkWorker:
                 latent.headless_steps.clear()
         if getattr(latent, "staged", None) is not None:
             latent.staged.graphs.clear()
+            if hasattr(latent.staged, "head_graphs"):
+                latent.staged.head_graphs.clear()
 
 
 def main():
@@ -118,11 +120,16 @@ def main():
                         if (mode == "mixed")
                         else mode
                     )
+                    if mode == "gated_mixed":
+                        kind = "entropy"
+                    elif mode == "sparse":
+                        kind = "soft" if i == 0 else "entropy"
                     spec = preset(
                         "soft"
                         if kind == "topk"
                         else ("hidden" if kind == "hidden_zero" else kind),
                         args.steps // 2,
+                        threshold=2.0 + (i % 2) if mode == "gated_mixed" else 2.0,
                     )
                     if kind == "hidden_zero":
                         spec["fallback"] = "zero"

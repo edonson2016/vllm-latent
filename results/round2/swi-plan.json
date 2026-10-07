@@ -1,0 +1,26 @@
+[
+  {
+    "label": "core",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect"
+  },
+  {
+    "label": "async",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,async_metadata"
+  },
+  {
+    "label": "tail",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,async_metadata,tail_sample"
+  },
+  {
+    "label": "head",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,async_metadata,capture_head"
+  },
+  {
+    "label": "state",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,fuse_state"
+  },
+  {
+    "label": "combo",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,union_gate,async_metadata,capture_head,fuse_state,parameterize"
+  }
+]

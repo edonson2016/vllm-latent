@@ -12,6 +12,269 @@ import torch
 from vllm.v1.latent.program import Program, preset
 
 
+def test_swi_switch_queues_and_cutoff_preserve_recorded_tokens():
+    """Forced end-think does not lock: only a raw sampled end-think does."""
+    from vllm.v1.latent.swireasoning import SwiProgram
+
+    spec = dict(
+        policy="swireasoning",
+        start_id=60,
+        end_id=61,
+        linebreak_id=62,
+        stop_id=63,
+        window=1,
+        max_tokens=100,
+        max_switch_count=1,
+        convergence_ids=[61],
+        termination_ids=[61, 7, 8],
+        termination_max_tokens=3,
+    )
+    program = SwiProgram(spec, 4, 64)
+    program.prepare(torch.randn(64, 4))
+    state = torch.zeros(1, 8)
+    recorded, active, budgets = [], [], []
+    for step, entropy in enumerate([5.0, 4.0, 6.0, 3.0, 7.0, 2.0, 2.0, 2.0]):
+        mask, _, _, state, ids = program.decide(
+            torch.tensor([[entropy]]),
+            torch.tensor([[3]]),
+            torch.tensor([[step]]),
+            state,
+        )
+        recorded.append(ids.item())
+        active.append(mask.item())
+        budgets.append(state[0, 7].item())
+    assert recorded == [3, 3, 61, 3, 61, 3, 61, 63]
+    assert active[:6] == [True] * 6
+    assert state[0, 4].item() == 3
+    assert state[0, 3].item() == 0
+    assert budgets[-3:] == [2, 1, 0]
+
+
+def test_parameterized_structure_keeps_request_specific_values():
+    from vllm.v1.latent.compiler import optimize
+    from vllm.v1.latent.parameters import parameterize
+
+    left, a = parameterize(preset("soft", 1))
+    right, b = parameterize(preset("soft", 3))
+    assert left == right
+    program = optimize(Program(left, 2, 3))
+    e = torch.tensor([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
+    result, mask, _ = program(
+        torch.zeros(2, 3),
+        None,
+        e[:2],
+        torch.full((2, 1), 2),
+        torch.zeros(2, 8),
+        e,
+        parameters=torch.tensor([a, b], dtype=torch.float32),
+    )
+    assert mask.tolist() == [[False], [True]]
+    torch.testing.assert_close(result[0], e[0])
+    torch.testing.assert_close(result[1], e.mean(0))
+
+
+def test_swi_padding_does_not_enter_compacted_expectation(monkeypatch):
+    """Only live consumers may determine the GEMM row count or its gate."""
+    from vllm.v1.latent.compiler import SharedProgram
+    from vllm.v1.latent.swireasoning import SwiProgram
+
+    program = SwiProgram(
+        dict(
+            policy="swireasoning", start_id=60, end_id=61, linebreak_id=62, stop_id=63
+        ),
+        4,
+        64,
+    )
+    program.exact_compact = True
+    e = torch.randn(64, 4)
+    program.prepare(e)
+    seen = []
+
+    def expectation(p, embedding, gate, exact=False):
+        assert exact
+        seen.append(gate.clone())
+        return p @ embedding
+
+    monkeypatch.setattr("vllm.v1.latent.kernels.compact_expect", expectation)
+    result = SharedProgram([program])(
+        torch.zeros(3, 64),
+        None,
+        e[:3],
+        torch.zeros(3, 1),
+        torch.zeros(3, 8),
+        e,
+        torch.tensor([[0], [-1], [0]]),
+        sampled=torch.zeros(3, 1, dtype=torch.long),
+    )
+    assert seen[0].tolist() == [[True], [False], [True]]
+    assert result[1].tolist() == [[True], [False], [True]]
+    torch.testing.assert_close(result[0][1], e[1])
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+def test_exact_compaction_replays_noncontiguous_active_rows():
+    from vllm.v1.latent.kernels import compact_expect
+
+    p = torch.randn(7, 65, device="cuda").softmax(-1)
+    embedding = torch.randn(65, 16, device="cuda")
+    gate = torch.zeros(7, 1, device="cuda", dtype=torch.bool)
+    stream = torch.cuda.Stream()
+    stream.wait_stream(torch.cuda.current_stream())
+    with torch.cuda.stream(stream):
+        compact_expect(p, embedding, gate, exact=True)
+    stream.synchronize()
+    graph = torch.cuda.CUDAGraph()
+    with torch.cuda.graph(graph, stream=stream):
+        result = compact_expect(p, embedding, gate, exact=True)
+    torch.cuda.current_stream().wait_stream(stream)
+    for active in [[], [4], [0, 2, 6], list(range(7)), []]:
+        gate.zero_()
+        gate[active] = True
+        graph.replay()
+        expected = torch.zeros_like(result)
+        if active:
+            expected[active] = p[active] @ embedding
+        torch.testing.assert_close(result, expected)
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+@pytest.mark.parametrize("expectation", ["topk", "adaptive", "lowrank"])
+def test_approximate_swi_graph_skips_and_reactivates(expectation):
+    from vllm.v1.latent.swireasoning import SwiProgram
+
+    e = torch.randn(64, 8, device="cuda", dtype=torch.bfloat16)
+    program = SwiProgram(
+        dict(
+            policy="swireasoning",
+            start_id=60,
+            end_id=61,
+            linebreak_id=62,
+            stop_id=63,
+            expectation=expectation,
+            topk=8,
+        ),
+        8,
+        64,
+        {
+            "embedding.left": e[:, :4].contiguous(),
+            "embedding.right": torch.randn(4, 8, device="cuda", dtype=e.dtype),
+        },
+    )
+    program.prepare(e)
+    program.conditional_expect = True
+    logits = torch.randn(3, 64, device="cuda")
+    sampled = torch.zeros(3, 1, device="cuda", dtype=torch.long)
+    valid = torch.zeros(3, 1, device="cuda", dtype=torch.bool)
+    args = (
+        logits,
+        None,
+        e[:3],
+        torch.zeros(3, 1, device="cuda"),
+        torch.zeros(3, 8, device="cuda"),
+        e,
+        sampled,
+    )
+    stream = torch.cuda.Stream()
+    stream.wait_stream(torch.cuda.current_stream())
+    with torch.cuda.stream(stream):
+        program.execute(*args, valid=valid)
+    stream.synchronize()
+    graph = torch.cuda.CUDAGraph()
+    with torch.cuda.graph(graph, stream=stream):
+        outputs = program.execute(*args, valid=valid)
+    torch.cuda.current_stream().wait_stream(stream)
+    for mask in [[False] * 3, [True, False, True], [False] * 3, [True] * 3]:
+        valid.copy_(torch.tensor(mask, device="cuda")[:, None])
+        graph.replay()
+        expected = program.execute(*args, valid=valid)
+        for actual, reference in zip(outputs, expected):
+            torch.testing.assert_close(actual, reference)
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+def test_shared_union_gate_honors_every_consumer_in_captured_replay():
+    from vllm.v1.latent.compiler import SharedProgram, optimize
+
+    programs = [
+        optimize(Program(preset("entropy", 4, tau), 8, 17)) for tau in [2.0, 1.0]
+    ]
+    for program in programs:
+        program.union_gate = True
+        program.conditional_expect = True
+    shared = SharedProgram(programs)
+    logits = torch.zeros(3, 17, device="cuda")
+    e = torch.randn(17, 8, dtype=torch.bfloat16, device="cuda")
+    token = e[:3].clone()
+    step = torch.zeros(3, 1, device="cuda")
+    state = torch.zeros(3, 8, device="cuda")
+    ids = torch.tensor([[0], [1], [-1]], device="cuda")
+    stream = torch.cuda.Stream()
+    stream.wait_stream(torch.cuda.current_stream())
+    with torch.cuda.stream(stream):
+        for _ in range(3):
+            shared(logits, None, token, step, state, e, ids)
+    stream.synchronize()
+    graph = torch.cuda.CUDAGraph()
+    with torch.cuda.graph(graph, stream=stream):
+        outputs = shared(logits, None, token, step, state, e, ids)
+    torch.cuda.current_stream().wait_stream(stream)
+    # All off, only the second consumer on, and both on. The first consumer
+    # must not cache a zero result needed by the second one.
+    for peak in [40.0, 3.5, 0.0]:
+        logits.zero_()
+        logits[:, 0] = peak
+        graph.replay()
+        for i, program in enumerate(programs):
+            expected = program(
+                logits[i : i + 1],
+                None,
+                token[i : i + 1],
+                step[i : i + 1],
+                state[i : i + 1],
+                e,
+            )
+            for actual, reference in zip(outputs, expected):
+                torch.testing.assert_close(actual[i : i + 1], reference)
+        torch.testing.assert_close(outputs[0][2], token[2])
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA unavailable")
+def test_fused_swi_state_matches_tensor_state_machine():
+    """Compilation must retain queue timing, sampled locking and blend ramps."""
+    from vllm.v1.latent.swireasoning import SwiProgram
+
+    program = SwiProgram(
+        dict(
+            policy="swireasoning",
+            start_id=60,
+            end_id=61,
+            linebreak_id=62,
+            stop_id=63,
+            window=1,
+            max_tokens=128,
+            max_switch_count=1,
+            convergence_ids=[61],
+            termination_ids=[61, 7, 8],
+            math_ids=[11],
+        ),
+        4,
+        64,
+    )
+    program.prepare(torch.randn(64, 4, device="cuda"))
+    compiled = torch.compile(program.decide, fullgraph=True, dynamic=True)
+    for batch in [1, 3, 8]:
+        state = torch.zeros(batch, 8, device="cuda")
+        for i in range(24):
+            entropy = torch.rand(batch, 1, device="cuda") * 5
+            sampled = torch.randint(0, 64, (batch, 1), device="cuda")
+            step = torch.full((batch, 1), i, device="cuda")
+            expected = program.decide(entropy, sampled, step, state)
+            actual = compiled(entropy, sampled, step, state)
+            for left, right in zip(expected, actual):
+                torch.testing.assert_close(left, right, rtol=0, atol=0)
+            state = expected[3]
+
+
 @pytest.mark.parametrize("device", ["cpu", "cuda"])
 def test_soft_feedback_and_budget_return_to_token(device):
     if device == "cuda" and not torch.cuda.is_available():

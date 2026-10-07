@@ -1,0 +1,4802 @@
+[
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 1,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 1,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 3,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 3,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 8,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 8,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "topk",
+    "batch": 32,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 0,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 1,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 2,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 3,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 4,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 5,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 6,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 7,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 8,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 9,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 10,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 11,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 12,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 13,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 14,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 15,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 16,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 17,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 18,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 19,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 20,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 21,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 22,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 23,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 24,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 25,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 26,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 27,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 28,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 29,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 30,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 31,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 32,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 33,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 34,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 35,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 36,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 37,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 38,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 39,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 40,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 41,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 42,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 43,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 44,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 45,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 46,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 47,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 48,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  },
+  {
+    "expectation": "adaptive",
+    "batch": 32,
+    "trial": 49,
+    "equal": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "embedding_max_error": 0.0
+  }
+]

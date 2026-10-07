@@ -9,18 +9,22 @@ import torch
 
 
 def dependencies(program):
+    if getattr(program, "builtin", False):
+        return [], program.live
     live = {program.output, program.latent, *program.updates.values()}
     kept = []
     for dst, op, args in reversed(program.ops):
         if dst not in live:
             continue
         kept.append((dst, op, args))
-        if op != "CONST":
+        if op not in {"CONST", "PARAM"}:
             live.update(args[:-1] if op in {"PROJECT", "TOPK_EXPECT"} else args)
     return list(reversed(kept)), live
 
 
 def optimize(program):
+    if getattr(program, "builtin", False):
+        return program
     result = copy.copy(program)
     result.ops, result.live = dependencies(program)
     nodes = {dst: (dst, op, args) for dst, op, args in result.ops}
@@ -31,7 +35,7 @@ def optimize(program):
         if name in seen or name not in nodes:
             return
         dst, op, args = nodes[name]
-        if op != "CONST":
+        if op not in {"CONST", "PARAM"}:
             for arg in args[:-1] if op in {"PROJECT", "TOPK_EXPECT"} else args:
                 emit(arg)
         seen.add(name)
@@ -94,7 +98,23 @@ class SharedProgram:
 
     def __init__(self, programs, share=True):
         self.programs = [copy.copy(p) for p in programs]
-        if share and len(programs) > 1:
+        self.union = (
+            share
+            and len(programs) > 1
+            and all(getattr(p, "union_gate", False) for p in programs)
+        )
+        self.gates = []
+        if self.union:
+            for p in self.programs:
+                gate = copy.copy(p)
+                gate.output, gate.updates = "token", {}
+                gate = optimize(gate)
+                safe = not p.updates and not any(
+                    op == "EXPECT" for _, op, _ in gate.ops
+                )
+                self.gates.append(gate if safe else None)
+                p.conditional_expect = True
+        if share and len(programs) > 1 and not self.union:
             # One shared dense GEMM serves all policies. A per-policy gate
             # cannot guard that common result without a union-of-consumers mask.
             for p in self.programs:
@@ -102,22 +122,95 @@ class SharedProgram:
         self.share = share
         self.live = set().union(*(dependencies(p)[1] for p in programs))
 
-    def __call__(self, logits, hidden, token, step, state, embedding, ids):
+    def __call__(
+        self,
+        logits,
+        hidden,
+        token,
+        step,
+        state,
+        embedding,
+        ids,
+        sampled=None,
+        parameters=None,
+    ):
         cache: dict[Any, torch.Tensor] | None = {} if self.share else None
+        if self.union:
+            assert cache is not None
+            for i, (program, gate) in enumerate(zip(self.programs, self.gates)):
+                selected = ids == i
+                if gate is not None:
+                    mask = gate(
+                        logits,
+                        hidden,
+                        token,
+                        step,
+                        state,
+                        embedding,
+                        cache=cache,
+                        parameters=parameters,
+                        predicate_only=True,
+                    )
+                    selected = selected & mask
+                expressions: dict[str, Any] = {
+                    name: ("input", name)
+                    for name in ["logits", "hidden", "token", "step"]
+                    + [f"s{i}" for i in range(8)]
+                }
+                for dst, op, args in program.ops:
+                    key = (
+                        op,
+                        tuple((type(a).__name__, a) for a in args)
+                        if op in {"CONST", "PARAM"}
+                        else tuple(expressions[a] for a in args),
+                        None,
+                    )
+                    expressions[dst] = key
+                    if op == "EXPECT":
+                        consumer = ("GATE", key)
+                        cache[consumer] = (
+                            cache.get(consumer, torch.zeros_like(selected)) | selected
+                        )
         result, mask, next_state = (
             token,
             torch.zeros_like(step, dtype=torch.bool),
             state,
         )
+        recorded = sampled
         for i, program in enumerate(self.programs):
-            output, latent, updated = program(
-                logits, hidden, token, step, state, embedding, cache=cache
-            )
             selected = ids == i
+            if sampled is None:
+                output, latent, updated = program(
+                    logits,
+                    hidden,
+                    token,
+                    step,
+                    state,
+                    embedding,
+                    cache=cache,
+                    parameters=parameters,
+                    valid=selected,
+                )
+            else:
+                output, latent, updated, tokens = program.execute(
+                    logits,
+                    hidden,
+                    token,
+                    step,
+                    state,
+                    embedding,
+                    sampled,
+                    cache=cache,
+                    parameters=parameters,
+                    valid=selected,
+                )
+                recorded = torch.where(ids == i, tokens, recorded)
             result = torch.where(selected, output, result)
             mask = torch.where(selected, latent, mask)
             next_state = torch.where(selected, updated, next_state)
-        return result, mask, next_state
+        if sampled is None:
+            return result, mask, next_state
+        return result, mask, next_state, recorded
 
 
 def fuse_expectations(program):
@@ -142,6 +235,8 @@ def can_share(programs):
     seen: set[Any] = set()
     repeated = False
     for program in programs:
+        if getattr(program, "builtin", False):
+            return False
         expressions: dict[str, Any] = {
             name: name for name in ["logits", "hidden", "token", "step"]
         }
@@ -153,7 +248,7 @@ def can_share(programs):
             key = (
                 op,
                 tuple((type(x).__name__, x) for x in args)
-                if op == "CONST"
+                if op in {"CONST", "PARAM"}
                 else tuple(expressions[x] for x in args),
             )
             expressions[dst] = key
@@ -165,6 +260,8 @@ def can_share(programs):
 
 
 def needs_device_gate(program):
+    if getattr(program, "builtin", False):
+        return True
     gate = copy.copy(program)
     gate.output = "token"
     gate.updates = {}

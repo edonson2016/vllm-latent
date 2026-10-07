@@ -7,10 +7,12 @@ to be a sampled-token embedding, a distribution-weighted embedding, a hidden
 state, or a validated tensor expression. Different requests can use different
 programs in the same continuously scheduled batch.
 
-The implemented API is for bounded research experiments. It returns diagnostic
-token sequences, requires an explicit generation budget, and does not reproduce
-every policy or the accuracy results of the cited reasoning frameworks.
-See [the optimization experiments](results/optimization/REPORT.md), the
+The implemented API is for bounded research experiments and requires an explicit
+generation budget. Generic tensor programs return diagnostic token sequences;
+the complete SwiReasoning adapter preserves sampled/forced tokens and supports
+EOS termination. It does not reproduce every cited framework or its published
+accuracy. See [the second optimization round](results/round2/REPORT.md),
+[the first optimization experiments](results/optimization/REPORT.md), the
 [original results](results/latent/REPORT.md), and the
 [scaling comparison](results/scaling/REPORT.md) for the tested scope.
 
@@ -65,6 +67,7 @@ llm = LLM(
         "max_steps": 512,
         "max_programs": 16,
         "cuda_graphs": True,
+        "workspace_bytes": 3 * 1024**3,
     }},
 )
 params = SamplingParams(
@@ -82,6 +85,56 @@ The entropy preset is an illustrative threshold policy, **not SwiReasoning**.
 Omit `decode_program` for an ordinary request within an enabled engine. Omit
 `latent_decode` entirely to retain the upstream token-input path. The extension
 selects model runner V1 and rejects an explicitly forced V2 configuration.
+
+### Complete SwiReasoning policy
+
+```python
+from vllm.v1.latent import REFERENCE_SHAPE_OPTIMIZATIONS
+from vllm.v1.latent.swireasoning import swi_preset
+
+# At engine construction, set latent_decode.optimizations to
+# list(REFERENCE_SHAPE_OPTIMIZATIONS) for the reference-shape profile.
+# Use COMBINED_OPTIMIZATIONS for the faster padded expectation instead.
+spec = swi_preset(
+    llm.get_tokenizer(), max_tokens=512,
+    alpha=1.0, beta=0.7, window=512,
+    max_switch_count=2, termination_max_tokens=32,
+    expectation="fp32",
+)
+params = SamplingParams(
+    temperature=0, max_tokens=512, ignore_eos=False,
+    extra_args={"decode_program": spec},
+)
+prompt = llm.get_tokenizer().apply_chat_template(
+    [{"role": "user", "content": "What is 17 times 19? Explain briefly."}],
+    tokenize=False, add_generation_prompt=True,
+)
+outputs = llm.generate([prompt], params)
+```
+
+This bounded built-in policy uses eight GPU state registers for entropy-trend
+switching, dwell time, the sampled-end-token lock, convergence and termination
+queues, and the answer budget. Anchor blending and math-token exemptions follow
+the pinned QwenReasoning implementation. The budget in the spec must equal
+`SamplingParams.max_tokens`. `math_ids`, `convergence_ids`, `termination_ids`,
+and the four anchor/stop IDs are validated admission constants. A forced stop
+ID must be an EOS or a configured `stop_token_ids` entry to terminate the request.
+`ignore_eos=True` retains fixed-work diagnostic execution through stop readouts.
+
+The default `fp32` expectation uses a shared, cached FP32 embedding table and
+casts its product back to model dtype before FP32 anchor blending. This matches
+QwenReasoning's arithmetic order, including double-to-FP32 blend weights.
+Different GEMM batch shapes can still change rounding. Preemption preserves
+the complete state and embedding history instead of restarting the mode machine.
+
+Explicit experimental expectations are `bf16`, `topk`, `adaptive`, and `lowrank`.
+Top-k uses `topk` entries (default 64); adaptive masks that list at cumulative
+probability `mass` (default .99) and renormalizes. Its fixed maximum k can retain
+less than the requested mass. The captured graph still reserves the maximum-k
+workspace. Low-rank expects operator-registered `embedding.left` and
+`embedding.right` matrices; `lowrank` can select another registered name prefix.
+These change the algorithm. The round-two report evaluates their quality as
+well as latency; none is silently substituted for FP32 feedback.
 
 ### Custom programs
 
@@ -151,12 +204,43 @@ CUDA graph node to skip cuBLAS when every row in the group is inactive. Active
 groups retain the ordinary cuBLAS operation. This requires the conditional
 graph API in the tested PyTorch 2.13/CUDA 13 stack. On older stacks, explicitly
 omit `conditional_expect`; the engine rejects an unsupported requested backend.
-Shared multi-policy expectation currently executes one unconditional GEMM;
-combining the consumer predicates into a shared gate remains future work.
+`union_gate` combines masks from all selected consumers of a shared expectation.
+State-update dependencies and expectation-dependent predicates are handled
+conservatively. It requires `share` and `conditional_expect`.
 In batch-invariant mode, conditional execution honors vLLM's invariant matmul
 backend. Kernel choice and batch composition can still affect long latent
 trajectories; the [numerical diagnostics](results/optimization/REPORT.md#correctness-quality-and-a-failure-found-during-testing)
 describe both matching checks and remaining cross-implementation differences.
+For stricter cross-path diagnostics, combine `VLLM_BATCH_INVARIANT=1` with
+`compilation_config={"custom_ops": ["+rms_norm"]}`. Round-two tests isolate a
+1.7B discrepancy to compiled normalization/input paths without executing any
+latent transition; this explicit normalization choice restores agreement.
+
+Additional opt-in optimizations are:
+
+| Option | Effect |
+| --- | --- |
+| `async_metadata` | Event-protected pinned buffers permit nonblocking metadata uploads. |
+| `parameterize` | Lift up to 16 numeric CONSTs into request parameters; cache graph structure and concrete position proofs across value changes. |
+| `tail_sample` | Capture eligible greedy sampling with the transition. |
+| `capture_head` | Also capture the LM head for eligible single-policy batches, removing external head/logit staging work. |
+| `fuse_state` | Compile the SwiReasoning state update into fused device operations before capture. |
+| `compact_expect` | Experimental active-row sorting and conditional GEMM buckets; changes reduction shapes and was slower in the tested workloads. |
+| `exact_compact` | Capture a conditional branch for every possible active-row count, reproducing the reference expectation GEMM shape more closely. Extra capture time/memory and runtime overhead; no guarantee of bitwise agreement across engines. |
+
+`vllm.v1.latent.COMBINED_OPTIMIZATIONS` supplies the measured combined profile.
+`REFERENCE_SHAPE_OPTIMIZATIONS` adds `exact_compact` for SwiReasoning numerical
+compatibility studies. Pass either as `list(...)` in the configuration's
+`optimizations` field. The generic default remains unchanged because the new
+combination does not uniformly improve already-warm generic programs. Neither
+profile substitutes BF16, top-k, adaptive truncation, or low-rank expectations
+for the FP32 SwiReasoning default.
+
+Sampling/head capture falls back to the normal sampler for stochastic sampling,
+partial transition batches, minimum-token constraints, thinking budgets, or
+custom logits processors. No transformer layer or attention kernel is replaced.
+The [round-two report](results/round2/REPORT.md) separates individual effects,
+combinations, admission costs, and changes in reasoning quality.
 
 Set `latent_decode.optimizations` to an explicit list for ablations. An empty
 list selects the original implementation and requires `enable_prompt_embeds=True`.
@@ -191,9 +275,19 @@ The embedding-history allocation is
 `capacity * max_steps * d_model * dtype_bytes`, plus eight state scalars and one
 mask per generated position. With capacity 64, 128 steps, width 4096, and BF16,
 embedding history is 64 MiB. Graph buffers and registered matrices consume
-additional memory. Graph allocations happen at admission and are **not yet
-fully reserved by the scheduler's KV memory budget**; leave GPU headroom and
-bound `max_programs`. This is a remaining production-admission limitation.
+additional memory. `workspace_bytes` subtracts an explicit allowance from KV
+cache sizing for dynamic admission; it is an operator budget, not an automatic
+proof that arbitrary future programs fit. The FP32 SwiReasoning table alone
+costs `vocab_size * d_model * 4` bytes, shared across its programs.
+
+For predictable admission, provide `program_catalog: [spec, ...]` and set
+`allow_dynamic_programs=False`. These programs are materialized during model
+loading, before KV profiling, so their actual resident allocations are included
+in memory sizing. With `parameterize`, new numeric values reuse catalogued
+structures. Unknown structures are rejected in the frontend. The catalog's
+distinct structures must fit `max_programs`. A dynamic registry remains bounded
+by that count and can evict unused programs; graph capture can still stall
+unrelated requests when uncataloged structures arrive.
 
 Token-prefix caching is disabled because placeholder IDs do not identify a
 latent trajectory. Correct future sharing needs a cache identity incorporating
@@ -212,8 +306,11 @@ checkpoints are not reproduced by applying it to stock Qwen3-8B.
 [SwiReasoning](https://github.com/sdc17/SwiReasoning/blob/main/generation_utils.py)
 uses entropy history, mode residence times, boundary embeddings, and optional
 switch-count termination and token exceptions. A soft embedding or instantaneous
-entropy threshold alone is not that method. This fork provides several required
-primitives, but does not include a complete SwiReasoning adapter.
+entropy threshold alone is not that method. This fork now includes a complete
+GPU adapter matching the pinned QwenReasoning state-machine contract, plus
+matched-policy latency tests and held-out quality measurements. This establishes
+implementation compatibility, not reproduction of the paper's trained-model
+accuracy or equivalence under every floating-point kernel choice.
 
 [LatentMAS](https://arxiv.org/html/2511.20639v1) additionally transfers working
 memory between agents. Hidden-state projection can be expressed here, but
@@ -222,16 +319,19 @@ It requires scheduler ownership, position handling, and cache-transfer semantics
 of its own, even when agents run synchronously.
 
 The current supported surface is single-GPU Qwen3/Llama text inference without quantization, resumable input,
-LoRA, speculative decoding, KV transfer, or prefix caching. Diagnostic outputs
+LoRA, speculative decoding, KV transfer, or prefix caching. Generic diagnostic outputs
 contain ID `0` at latent positions; they are not faithful text or a self-contained
 serialization of a latent trace. Do not infer a latent mask by filtering all zero
-IDs, since zero may also be sampled explicitly. Stop strings, EOS termination,
-logprobs, token penalties, and constrained output are rejected for program
-requests. Ordinary requests are still supported within the same engine.
+IDs, since zero may also be sampled explicitly. Generic programs require a fixed
+budget; SwiReasoning also supports normal EOS/token-stop handling and decoded
+text. Stop strings, logprobs, token penalties, thinking-budget overrides, and
+constrained output remain rejected for program requests. Ordinary requests are
+still supported within the same engine.
 
 A production API should return a separate emission mask and stop decision,
-distinguish generated positions from visible tokens, reserve graph workspace
-before KV sizing, and expose a validated registry of larger state tensors.
+distinguish generated positions from visible tokens, enforce resource bounds
+for open-ended dynamic program admission, and expose a validated registry of
+larger state tensors.
 Tensor parallel execution needs vocabulary-sharded expectation and reduction.
 The default SELECT still evaluates both branches when its predicate depends on
 model values. Static inactive-phase skipping and the experimental gated kernel

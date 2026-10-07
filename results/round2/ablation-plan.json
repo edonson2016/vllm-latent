@@ -1,0 +1,44 @@
+[
+  {
+    "label": "core",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "union",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,union_gate",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "async",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,async_metadata",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "tail",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,tail_sample",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "parameter",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,parameterize",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "combo",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,union_gate,async_metadata,tail_sample,parameterize",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "compact",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,union_gate,async_metadata,tail_sample,parameterize,compact_expect",
+    "modes": "token,soft,mixed,gated_mixed,sparse",
+    "overlay": "/tmp/round2-overlay"
+  }
+]

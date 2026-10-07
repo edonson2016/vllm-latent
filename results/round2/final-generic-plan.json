@@ -1,0 +1,13 @@
+[
+  {
+    "label": "optimized",
+    "opts": "prune,fast_input,staging,skip_inactive,share,skip_head,conditional_expect,union_gate,async_metadata,capture_head,fuse_state,parameterize",
+    "modes": "token,soft,entropy,mixed",
+    "overlay": "/tmp/round2-overlay"
+  },
+  {
+    "label": "stock-after",
+    "overlay": "",
+    "modes": "token"
+  }
+]

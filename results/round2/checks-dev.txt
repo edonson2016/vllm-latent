@@ -1,0 +1,90 @@
+ruff check..........................................................................................Failed
+- hook id: ruff-check
+- exit code: 1
+
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/round2_admission.py,line=26,col=89,endLine=26,endColumn=114::benchmarks/latent/round2_admission.py:26:89: E501 Line too long (113 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/benchmarks/latent/round2_drift.py,line=74,col=89,endLine=74,endColumn=100::benchmarks/latent/round2_drift.py:74:89: E501 Line too long (99 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/runner.py,line=128,col=89,endLine=128,endColumn=102::vllm/v1/latent/runner.py:128:89: E501 Line too long (101 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/runner.py,line=129,col=89,endLine=129,endColumn=91::vllm/v1/latent/runner.py:129:89: E501 Line too long (90 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/runner.py,line=164,col=89,endLine=164,endColumn=90::vllm/v1/latent/runner.py:164:89: E501 Line too long (89 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/runner.py,line=289,col=89,endLine=289,endColumn=90::vllm/v1/latent/runner.py:289:89: E501 Line too long (89 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/runner.py,line=290,col=89,endLine=290,endColumn=96::vllm/v1/latent/runner.py:290:89: E501 Line too long (95 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/validation.py,line=70,col=89,endLine=70,endColumn=91::vllm/v1/latent/validation.py:70:89: E501 Line too long (90 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/latent/validation.py,line=71,col=89,endLine=71,endColumn=92::vllm/v1/latent/validation.py:71:89: E501 Line too long (91 > 88)
+::error title=Ruff (E501),file=/home/edonson/vllm-latent/vllm/v1/worker/gpu_worker.py,line=596,col=89,endLine=596,endColumn=104::vllm/v1/worker/gpu_worker.py:596:89: E501 Line too long (103 > 88)
+
+ruff format.........................................................................................Failed
+- hook id: ruff-format
+- files were modified by this hook
+
+5 files reformatted, 17 files left unchanged
+
+typos...............................................................................................Passed
+clang-format....................................................................(no files to check)Skipped
+markdownlint-cli2...............................................................(no files to check)Skipped
+Lint GitHub Actions workflow files..............................................(no files to check)Skipped
+shellcheck......................................................................(no files to check)Skipped
+pip-compile.....................................................................(no files to check)Skipped
+pip-compile-rocm................................................................(no files to check)Skipped
+pip-compile-xpu.................................................................(no files to check)Skipped
+pip-compile-cpu.................................................................(no files to check)Skipped
+pip-compile-docs................................................................(no files to check)Skipped
+check json......................................................................(no files to check)Skipped
+reformat test/nightly-torch.txt to be in sync with test/cuda.in.................(no files to check)Skipped
+Check auto-label rules still match real files...................................(no files to check)Skipped
+Check every Buildkite step declares an explicit key.............................(no files to check)Skipped
+Check new tests are wired into Buildkite CI.........................................................Passed
+- hook id: check-test-tethering
+- duration: 2.37s
+Run mypy for Python 3.10............................................................................Failed
+- hook id: mypy-3.10
+- exit code: 1
+
+vllm/v1/latent/parameters.py:12: error: Need type annotation for "values" (hint: "values: list[<type>] = ...")  [var-annotated]
+vllm/v1/latent/compiler.py:168: error: Incompatible types in assignment (expression has type "tuple[Any, tuple[tuple[str, Any], ...] | tuple[tuple[str, str], ...], None]", target has type "tuple[str, str]")  [assignment]
+vllm/v1/latent/swireasoning.py:90: error: "SwiProgram" has no attribute "topk"  [attr-defined]
+vllm/v1/latent/swireasoning.py:117: error: "SwiProgram" has no attribute "convergence_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:117: error: "SwiProgram" has no attribute "termination_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:119: error: "SwiProgram" has no attribute "math_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:125: error: "SwiProgram" has no attribute "end_id"  [attr-defined]
+vllm/v1/latent/swireasoning.py:128: error: "SwiProgram" has no attribute "convergence_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:128: error: "SwiProgram" has no attribute "termination_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:136: error: "SwiProgram" has no attribute "stop_id"  [attr-defined]
+vllm/v1/latent/swireasoning.py:141: error: "SwiProgram" has no attribute "window"  [attr-defined]
+vllm/v1/latent/swireasoning.py:152: error: "SwiProgram" has no attribute "convergence_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:155: error: "SwiProgram" has no attribute "termination_ids"  [attr-defined]
+vllm/v1/latent/swireasoning.py:158: error: "SwiProgram" has no attribute "termination_max_tokens"  [attr-defined]
+vllm/v1/latent/swireasoning.py:164: error: "SwiProgram" has no attribute "max_tokens"  [attr-defined]
+vllm/v1/latent/swireasoning.py:167: error: "SwiProgram" has no attribute "beta"  [attr-defined]
+vllm/v1/latent/swireasoning.py:171: error: "SwiProgram" has no attribute "alpha"  [attr-defined]
+vllm/v1/latent/swireasoning.py:176: error: "SwiProgram" has no attribute "end_id"  [attr-defined]
+vllm/v1/latent/swireasoning.py:176: error: "SwiProgram" has no attribute "linebreak_id"  [attr-defined]
+vllm/v1/latent/swireasoning.py:176: error: "SwiProgram" has no attribute "start_id"  [attr-defined]
+vllm/v1/latent/swireasoning.py:207: error: "SwiProgram" has no attribute "topk"  [attr-defined]
+vllm/v1/latent/swireasoning.py:209: error: "SwiProgram" has no attribute "mass"  [attr-defined]
+vllm/v1/latent/staging.py:111: error: Item "None" of "Any | None" has no attribute "argmax"  [union-attr]
+Found 23 errors in 4 files (checked 12 source files)
+Success: no issues found in 2 source files
+$ mypy --python-version 3.10 
+$ mypy --python-version 3.10 --follow-imports skip tests/v1
+
+Lint PNG exports from excalidraw................................................(no files to check)Skipped
+Check SPDX headers..................................................................................Passed
+Check root lazy imports.............................................................................Passed
+Check for spaces in all filenames...................................................................Passed
+Update Dockerfile dependency graph..................................................................Passed
+Test non-root entrypoint wrapper................................................(no files to check)Skipped
+Check for forbidden imports.........................................................................Passed
+Prevent new 'torch.cuda' APIs call..................................................................Passed
+Validate configuration has default values and that each field has a docstring.......................Passed
+Validate docker/versions.json matches Dockerfile................................(no files to check)Skipped
+Check for boolean ops in with-statements............................................................Passed
+Rust - Normalize Cargo manifests with autoinherit...............................(no files to check)Skipped
+Rust - Sort Cargo manifest sections.............................................(no files to check)Skipped
+Rust - Format code..............................................................(no files to check)Skipped
+Suggestion..........................................................................................Passed
+- hook id: suggestion
+- duration: 0.01s
+
+To bypass all the pre-commit hooks, add --no-verify to git commit. To skip a specific hook, prefix the commit command with SKIP=<hook-id>.
+

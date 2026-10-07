@@ -592,6 +592,15 @@ class Worker(WorkerBase):
 
         """
         maybe_apply_startup_plan(self)
+        additional = self.vllm_config.additional_config
+        latent_config = (
+            (additional.get("latent_decode") or {})
+            if isinstance(additional, dict)
+            else {}
+        )
+        latent_workspace = int(latent_config.get("workspace_bytes", 0))
+        if latent_workspace < 0:
+            raise ValueError("latent workspace_bytes must be nonnegative")
 
         if kv_cache_memory_bytes := self.cache_config.kv_cache_memory_bytes:
             # still need a profile run which compiles the model for
@@ -612,7 +621,7 @@ class Worker(WorkerBase):
             )
             logger.info(msg)
             return reserve_mm_ipc_gpu_memory(
-                kv_cache_memory_bytes,
+                max(0, kv_cache_memory_bytes - latent_workspace),
                 self.model_config.multimodal_config,
                 getattr(self.parallel_config, "_api_process_count", 1),
             )
@@ -684,7 +693,13 @@ class Worker(WorkerBase):
             self.requested_memory
             - profile_result.non_kv_cache_memory
             - cudagraph_memory_estimate_applied
+            - latent_workspace
         )
+        if latent_workspace:
+            logger.info(
+                "Reserved %s GiB for latent admission workspace",
+                format_gib(latent_workspace),
+            )
 
         unrequested_memory = self.init_snapshot.free_memory - self.requested_memory
         logger.debug(

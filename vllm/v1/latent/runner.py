@@ -3,17 +3,22 @@
 """Worker integration and request-owned replay buffers for latent transitions."""
 
 import json
+from collections import OrderedDict
+from types import SimpleNamespace
 from typing import Any
 
 import numpy as np
 import torch
 
-from vllm.v1.latent.program import Program
+from vllm.v1.latent.program import build_program
 
 
 class TransitionRunner:
     def __init__(self, runner, config):
         self.runner = runner
+        self.catalog = config.get("program_catalog", [])
+        self.allow_dynamic_programs = config.get("allow_dynamic_programs", True)
+        self.catalog_ready = False
         self.optimizations = set(config.get("optimizations", []))
         allowed = {
             "prune",
@@ -25,6 +30,14 @@ class TransitionRunner:
             "skip_head",
             "gated_expect",
             "conditional_expect",
+            "union_gate",
+            "async_metadata",
+            "parameterize",
+            "tail_sample",
+            "compact_expect",
+            "exact_compact",
+            "capture_head",
+            "fuse_state",
         }
         if self.optimizations - allowed:
             raise ValueError("Unknown latent optimization")
@@ -42,12 +55,24 @@ class TransitionRunner:
             raise ValueError("conditional_expect needs CUDA conditional graph support")
         if "share" in self.optimizations and "staging" not in self.optimizations:
             raise ValueError("Sharing requires captured staging")
+        if (
+            "union_gate" in self.optimizations
+            and not {"share", "conditional_expect"} <= self.optimizations
+        ):
+            raise ValueError("union_gate requires sharing and conditional_expect")
         if "skip_head" in self.optimizations and "prune" not in self.optimizations:
             raise ValueError("Skipping the LM head requires dependency pruning")
+        if "parameterize" in self.optimizations and "staging" not in self.optimizations:
+            raise ValueError("parameterize requires captured staging")
+        if "tail_sample" in self.optimizations and "staging" not in self.optimizations:
+            raise ValueError("tail_sample requires captured staging")
+        if "capture_head" in self.optimizations and "staging" not in self.optimizations:
+            raise ValueError("capture_head requires captured staging")
         self.definitions = {}
         self.inactive_steps = {}
         self.headless_steps = {}
         self.staged = None
+        self.capture_head_pending = False
         self.input_dirty = False
         cfg = runner.vllm_config
         if (
@@ -83,6 +108,15 @@ class TransitionRunner:
             (self.capacity, self.max_steps, d), device=runner.device, dtype=runner.dtype
         )
         self.state = torch.zeros((self.capacity, 8), device=runner.device)
+        self.parameters = torch.zeros((self.capacity, 16), device=runner.device)
+        self.request_inactive = {}
+        self.request_headless = {}
+        self.concrete_proofs = OrderedDict()
+        self.parameter_ring = None
+        if "parameterize" in self.optimizations:
+            from vllm.v1.latent.transfer import MetadataRing
+
+            self.parameter_ring = MetadataRing(torch.empty(16, dtype=torch.float32))
         self.masks = torch.zeros(
             (self.capacity, self.max_steps), device=runner.device, dtype=torch.bool
         )
@@ -95,17 +129,37 @@ class TransitionRunner:
         self.max_programs = int(config.get("max_programs", 16))
         if not 1 <= self.max_programs <= 64:
             raise ValueError("max_programs must be between 1 and 64")
+        if not isinstance(self.catalog, list):
+            raise ValueError("program_catalog must be a list")
+        from vllm.v1.latent.parameters import parameterize
+
+        catalog_keys = {
+            json.dumps(
+                parameterize(p)[0] if "parameterize" in self.optimizations else p,
+                sort_keys=True,
+                allow_nan=False,
+            )
+            for p in self.catalog
+        }
+        if len(catalog_keys) > self.max_programs:
+            raise ValueError("program_catalog exceeds the resident program budget")
         # Only the server operator may configure projection files.
         if config.get("constants"):
             from safetensors.torch import load_file
 
             self.constants = load_file(config["constants"], device=str(runner.device))
         self.embedding = None
+        self.fp32_embedding = None
         if "fast_input" in self.optimizations:
             self.input_indices_cpu = torch.full(
                 (runner.max_num_tokens,), -1, dtype=torch.long, pin_memory=True
             )
             self.input_indices = self.input_indices_cpu.to(runner.device)
+            self.input_ring = None
+            if "async_metadata" in self.optimizations:
+                from vllm.v1.latent.transfer import MetadataRing
+
+                self.input_ring = MetadataRing(self.input_indices_cpu)
 
     def install_embedding(self, model):
         if "fast_input" in self.optimizations:
@@ -114,6 +168,25 @@ class TransitionRunner:
             model.model.embed_tokens = LatentEmbedding(
                 model.model.embed_tokens, self.history, self.masks, self.input_indices
             )
+        if self.catalog:
+            from vllm import SamplingParams
+
+            for spec in self.catalog:
+                request = SimpleNamespace(
+                    req_id="__latent_catalog__",
+                    prompt_embeds=None,
+                    prompt_token_ids=[],
+                    sampling_params=SamplingParams(
+                        temperature=0,
+                        max_tokens=spec.get("max_tokens", self.max_steps),
+                        ignore_eos=True,
+                        detokenize=False,
+                        extra_args={"decode_program": spec},
+                    ),
+                )
+                self.admit(request)
+                self.finish([request.req_id])
+        self.catalog_ready = True
 
     def needs_logits(self, scheduler_output):
         self.pending_groups = self.groups(scheduler_output)
@@ -150,10 +223,46 @@ class TransitionRunner:
             if any("logits" in dependencies(p)[1] for p in self.definitions.values()):
                 return False
         return all(
-            self.headless_steps[key][step]
+            getattr(self, "request_headless", {}).get(
+                self.runner.input_batch.req_ids[row], self.headless_steps[key]
+            )[step]
             for key, group in groups.items()
-            for _, _, step in group
+            for row, _, step in group
         )
+
+    def can_fuse_sample(self, scheduler_output):
+        if (
+            not {"tail_sample", "capture_head"} & self.optimizations
+            or self.staged is None
+        ):
+            return False
+        from vllm.v1.sample.logits_processor import BUILTIN_LOGITS_PROCESSORS
+
+        if any(
+            type(p) not in BUILTIN_LOGITS_PROCESSORS
+            for p in self.runner.input_batch.logitsprocs.all
+        ):
+            return False
+        groups = self.groups(scheduler_output)
+        if sum(map(len, groups.values())) != len(self.runner.input_batch.req_ids):
+            return False
+        return all(
+            self.runner.requests[req_id].sampling_params.temperature == 0
+            and self.runner.requests[req_id].sampling_params.min_tokens == 0
+            and self.runner.requests[req_id].sampling_params.thinking_token_budget
+            is None
+            for req_id in self.runner.input_batch.req_ids
+        ) and self.needs_logits(scheduler_output)
+
+    def can_capture_head(self, scheduler_output):
+        self.capture_head_pending = False
+        if "capture_head" not in self.optimizations or not self.can_fuse_sample(
+            scheduler_output
+        ):
+            return False
+        groups = self.groups(scheduler_output)
+        self.capture_head_pending = len(groups) == 1
+        return self.capture_head_pending
 
     def groups(self, scheduler_output):
         r = self.runner
@@ -173,7 +282,7 @@ class TransitionRunner:
                 raise RuntimeError("Latent transition exceeded reserved history")
             if (
                 "skip_inactive" in getattr(self, "optimizations", set())
-                and self.inactive_steps[key][step]
+                and self.request_inactive.get(req_id, self.inactive_steps[key])[step]
             ):
                 continue
             groups.setdefault(key, []).append((row, slot, step))
@@ -187,10 +296,23 @@ class TransitionRunner:
         from vllm.v1.latent.validation import validate_params
 
         validate_params(params, self.max_steps, request.prompt_embeds)
+        original_spec = spec
+        values = []
+        if "parameterize" in getattr(self, "optimizations", set()):
+            from vllm.v1.latent.parameters import parameterize
+
+            spec, values = parameterize(spec)
         key = json.dumps(spec, sort_keys=True, allow_nan=False)
         if len(key) > 16384:
             raise ValueError("Decode program exceeds 16 KiB admission limit")
         if key not in self.programs:
+            if (
+                getattr(self, "catalog_ready", False)
+                and not self.allow_dynamic_programs
+            ):
+                raise ValueError(
+                    "Decode program is absent from the operator's static catalog"
+                )
             if len(self.programs) >= self.max_programs:
                 active = {entry[1] for entry in self.requests.values()}
                 unused = next((k for k in self.programs if k not in active), None)
@@ -208,12 +330,22 @@ class TransitionRunner:
                         for keys, value in self.staged.graphs.items()
                         if unused not in keys
                     }
-            program = Program(
+                    self.staged.head_graphs = {
+                        keys: value
+                        for keys, value in self.staged.head_graphs.items()
+                        if unused not in keys
+                    }
+            program = build_program(
                 spec,
                 self.history.shape[-1],
                 self.runner.input_batch.vocab_size,
                 self.constants,
             )
+            if (
+                getattr(program, "builtin", False)
+                and "staging" not in self.optimizations
+            ):
+                raise ValueError("SwiReasoning requires captured staging")
             if "prune" in getattr(self, "optimizations", set()):
                 from vllm.v1.latent.compiler import optimize
 
@@ -235,6 +367,9 @@ class TransitionRunner:
 
                 program = optimize(program)
                 program.conditional_expect = needs_device_gate(program)
+            program.union_gate = "union_gate" in getattr(self, "optimizations", set())
+            program.compact_expect = "compact_expect" in self.optimizations
+            program.exact_compact = "exact_compact" in self.optimizations
             if hasattr(self, "definitions"):
                 self.definitions[key] = program
                 from vllm.v1.latent.compiler import active_without_logits, inactive
@@ -250,6 +385,14 @@ class TransitionRunner:
                 self.embedding = self.runner.get_model().model.embed_tokens.weight[
                     : self.runner.input_batch.vocab_size
                 ]
+            if hasattr(program, "prepare"):
+                if program.expectation == "fp32" and self.fp32_embedding is None:
+                    self.fp32_embedding = self.embedding.float()
+                program.prepare(self.embedding, self.fp32_embedding)
+                if "fuse_state" in self.optimizations:
+                    program.decide = torch.compile(
+                        program.decide, fullgraph=True, dynamic=True
+                    )
             if "staging" in getattr(self, "optimizations", set()):
                 from vllm.v1.latent.staging import StagedTransitions
 
@@ -272,6 +415,41 @@ class TransitionRunner:
                 "Latent request capacity exhausted (includes preempted requests)"
             )
         slot = self.free.pop()
+        if hasattr(self, "parameters"):
+            if values:
+                assert self.parameter_ring is not None
+                buffer = self.parameter_ring.acquire()
+                buffer.zero_()
+                buffer.numpy()[: len(values)] = values
+                self.parameter_ring.copy(self.parameters[slot], buffer)
+            from vllm.v1.latent.compiler import active_without_logits, inactive
+
+            if values:
+                proof_key = json.dumps(original_spec, sort_keys=True, allow_nan=False)
+                if proof_key not in self.concrete_proofs:
+                    concrete = build_program(
+                        original_spec,
+                        self.history.shape[-1],
+                        self.runner.input_batch.vocab_size,
+                        self.constants,
+                    )
+                    self.concrete_proofs[proof_key] = (
+                        [inactive(concrete, i) for i in range(self.max_steps)],
+                        [
+                            active_without_logits(concrete, i)
+                            for i in range(self.max_steps)
+                        ],
+                    )
+                    if len(self.concrete_proofs) > self.max_programs * 4:
+                        self.concrete_proofs.popitem(last=False)
+                self.concrete_proofs.move_to_end(proof_key)
+                (
+                    self.request_inactive[request.req_id],
+                    self.request_headless[request.req_id],
+                ) = self.concrete_proofs[proof_key]
+            else:
+                self.request_inactive[request.req_id] = self.inactive_steps[key]
+                self.request_headless[request.req_id] = self.headless_steps[key]
         self.state[slot].zero_()
         self.masks[slot].zero_()
         self.history[slot].zero_()
@@ -282,11 +460,16 @@ class TransitionRunner:
             if req_id in self.requests:
                 slot, _, _ = self.requests.pop(req_id)
                 self.free.append(slot)
+                if hasattr(self, "request_inactive"):
+                    self.request_inactive.pop(req_id, None)
+                    self.request_headless.pop(req_id, None)
 
     def inject(self, scheduler_output, inputs_embeds):
         # This is scheduler metadata, not a device-dependent transition decision.
         r = self.runner
         if "fast_input" in getattr(self, "optimizations", set()):
+            if self.input_ring is not None:
+                self.input_indices_cpu = self.input_ring.acquire()
             self.input_indices_cpu.fill_(-1)
         offsets, slots, steps = [], [], []
         offset = 0
@@ -301,7 +484,9 @@ class TransitionRunner:
                     if 0 <= step < len(req.output_token_ids):
                         if "skip_inactive" in getattr(self, "optimizations", set()):
                             key = self.requests[req_id][1]
-                            if self.inactive_steps[key][step]:
+                            if self.request_inactive.get(
+                                req_id, self.inactive_steps[key]
+                            )[step]:
                                 continue
                         offsets.append(offset + j)
                         slots.append(slot)
@@ -312,7 +497,10 @@ class TransitionRunner:
                 self.input_indices_cpu.numpy()[offsets] = np.asarray(
                     slots
                 ) * self.max_steps + np.asarray(steps)
-                self.input_indices.copy_(self.input_indices_cpu)
+                if self.input_ring is None:
+                    self.input_indices.copy_(self.input_indices_cpu)
+                else:
+                    self.input_ring.copy(self.input_indices, self.input_indices_cpu)
                 self.input_dirty = True
                 return
             indices = torch.tensor(
